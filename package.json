@@ -1,0 +1,37 @@
+{
+  "name": "deidentify",
+  "version": "0.1.0",
+  "description": "De-identification of Protected Health Information according to HIPAA Privacy Rule",
+  "author": {
+    "name": "Philipp Burckhardt",
+    "email": "pburckhardt@outlook.com"
+  },
+  "contributors": [
+    {
+      "name": "Philipp Burckhardt",
+      "email": "pburckhardt@outlook.com"
+    }
+  ],
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Planeshifter/deidentify.git"
+  },
+  "keywords": {
+
+  },
+  "window": {
+    "frame": true,
+    "toolbar": true,
+    "height": 768,
+    "width": 1024,
+    "resizable": false
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "jquery": "^2.1.4",
+    "markdown": "^0.5.0",
+    "node-ner": "0.0.3",
+    "textract": "^1.1.1"
+  }
+}

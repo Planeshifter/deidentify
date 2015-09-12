@@ -1,0 +1,40 @@
+#cmu_logo {
+    position: absolute;
+    left: 850px;
+    top: 20px;
+}
+
+#panels {
+    width: 90%;
+    margin:0px auto;
+}
+
+#process_div {
+    margin: 10px;
+    display: none;
+}
+
+#save_form {
+    display: none
+}
+
+#process_btn {
+    width: 25%;
+    height: 40px;
+    margin:0px auto;
+}
+
+#holder {
+    border: 10px
+    dashed #ccc;
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+    font-size: 1.8em;
+    line-height: 180px;
+    white-space: nowrap;
+}
+
+#holder.hover {
+    border: 10px dashed #333;
+}

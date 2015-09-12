@@ -1,0 +1,4 @@
+{
+  "cmd": "nw",
+  "args": ["enable-logging"]
+}
