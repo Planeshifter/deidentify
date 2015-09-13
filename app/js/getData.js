@@ -20,6 +20,9 @@ function getData( type, clbk ) {
 		i;
 
 	switch ( type ) {
+	case 'dates':
+		db = DB.DATES;
+	break;
 	case 'emails':
 		db = DB.EMAILS;
 	break;

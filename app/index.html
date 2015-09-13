@@ -26,40 +26,7 @@
 			<span id="filePathHolder"></span>
 		</div>
 		<div id="panels" class="row">
-			<div class="col-sm-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Select text content to be removed:</h3>
-					</div>
-					<div class="panel-body">
-						<div class="checkbox btn-group">
-							<label><input id="check_names" type="checkbox" value="" checked>Names</label>
-						</div>
-						<div class="checkbox">
-							<label><input id="check_locations" type="checkbox" value="" checked>Locations</label>
-						</div>
-						<div class="checkbox">
-							<label><input id="check_phone" type="checkbox" value="" checked>Telephone Numbers</label>
-						</div>
-						<div class="checkbox">
-							<label><input id="check_fax" type="checkbox" value="" checked>Fax Numbers</label>
-						</div>
-						<div class="checkbox">
-							<label><input id="check_emails" type="checkbox" value="" checked>Email Addresses</label>
-						</div>
-						<div class="checkbox">
-							<label><input id="check_dates" type="checkbox" value="" checked>Dates</label>
-						</div>
-						<div class="checkbox">
-							<label><input id="check_ssn" type="checkbox" value="" checked>Social Security Numbers (SSN)</label>
-						</div>
-						<div class="checkbox">
-							<label><input id="check_vehicles" type="checkbox" value="" checked>Vehicle Identifiers</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Original:</h3>
@@ -68,7 +35,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">De-identified:</h3>
@@ -99,6 +66,39 @@
 	</div>
 	<div id="dictDiv">
 		<table id="dictTable"></table>
+	</div>
+	<div id="optionsDiv">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Select text content to be removed:</h3>
+			</div>
+			<div class="panel-body">
+				<div class="checkbox btn-group">
+					<label><input id="check_names" type="checkbox" value="" checked>Names</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_locations" type="checkbox" value="" checked>Locations</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_phone" type="checkbox" value="" checked>Telephone Numbers</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_fax" type="checkbox" value="" checked>Fax Numbers</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_emails" type="checkbox" value="" checked>Email Addresses</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_dates" type="checkbox" value="" checked>Dates</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_ssn" type="checkbox" value="" checked>Social Security Numbers (SSN)</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_vehicles" type="checkbox" value="" checked>Vehicle Identifiers</label>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript" src="./js/main.js"></script>
 </body>

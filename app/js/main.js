@@ -16,6 +16,7 @@ $(document).ready( function ready() {
 		$dictDiv = $( '#dictDiv' ),
 		$fileProcess = $( '#fileProcess' ),
 		$fileProcessDiv = $( '#fileProcessDiv' ),
+		$optionsDiv = $( '#optionsDiv' ),
 		$process_btn = $( '#process_btn' ),
 		$splashScreen = $( '#splashScreen' );
 
@@ -53,6 +54,7 @@ $(document).ready( function ready() {
 		'label': 'File',
 		'click': function fileClick() {
 			$splashScreen.hide();
+			$optionsDiv.hide();
 			$dictDiv.hide();
 			$batchProcessDiv.hide();
 			$fileProcessDiv.show();
@@ -63,11 +65,23 @@ $(document).ready( function ready() {
 		'label': 'Batch',
 		'click': function batchClick() {
 			$dictDiv.hide();
+			$optionsDiv.hide();
 			$fileProcessDiv.hide();
 			$splashScreen.hide();
 			$batchProcessDiv.show();
 		},
 		'key': 'b'
+	}));
+
+	firstMenuItem.submenu.append( new gui.MenuItem({
+		'label': 'Options',
+		'click': function showOptions() {
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$fileProcessDiv.hide();
+			$dictDiv.hide();
+			$optionsDiv.show();
+		}
 	}));
 
 	var secondMenuItem = new gui.MenuItem({
@@ -87,6 +101,7 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			var $dictTable = $( '#dictTable' );
 			showTable( 'names', $dictTable );
@@ -97,9 +112,21 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			var $dictTable = $( '#dictTable' );
 			showTable( 'locations', $dictTable );
+		}
+	}));
+	displayMenuItem.submenu.append( new gui.MenuItem({
+		'label': 'Dates',
+		'click': function showDict() {
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$optionsDiv.hide();
+			$dictDiv.show();
+			var $dictTable = $( '#dictTable' );
+			showTable( 'dates', $dictTable );
 		}
 	}));
 	displayMenuItem.submenu.append( new gui.MenuItem({
@@ -107,9 +134,20 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			var $dictTable = $( '#dictTable' );
 			showTable( 'emails', $dictTable );
+		}
+	}));
+	displayMenuItem.submenu.append( new gui.MenuItem({
+		'label': 'Fax Numbers',
+		'click': function showDict() {
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$dictDiv.show();
+			var $dictTable = $( '#dictTable' );
+			showTable( 'fax', $dictTable );
 		}
 	}));
 	displayMenuItem.submenu.append( new gui.MenuItem({
@@ -132,6 +170,16 @@ $(document).ready( function ready() {
 			showTable( 'ssn', $dictTable );
 		}
 	}));
+	displayMenuItem.submenu.append( new gui.MenuItem({
+		'label': 'Vehicle Identifiers',
+		'click': function showDict() {
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$dictDiv.show();
+			var $dictTable = $( '#dictTable' );
+			showTable( 'vehicles', $dictTable );
+		}
+	}));
 
 	secondMenuItem.submenu.append( new gui.MenuItem({
 		'label': 'Save',
@@ -140,13 +188,13 @@ $(document).ready( function ready() {
 		'key': 's'
 	}));
 
-	var thirdMenuItem = new gui.MenuItem({
+	var fourthMenuItem = new gui.MenuItem({
 		'label': 'Help',
 		'submenu': new gui.Menu()
 	});
-	windowMenu.append( thirdMenuItem );
+	windowMenu.append( fourthMenuItem );
 
-	thirdMenuItem.submenu.append( new gui.MenuItem({
+	fourthMenuItem.submenu.append( new gui.MenuItem({
 		'label': 'About',
 		'click': function aboutClick() {
 			console.log("ABOUT ME");
