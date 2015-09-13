@@ -2,63 +2,136 @@
 
 // MODULES //
 
-var textract = require('textract');
-var node_ner = require('node-ner');
+var async = require( 'async' ),
+	textract = require('textract'),
+	node_ner = require('node-ner');
+
 var ner = new node_ner({
 	install_path:   './stanford-ner-2014-10-26'
 });
 
+
+// FUNCTIONS //
+
+var getReplacement = require( './getReplacement.js' ),
+	replace = require( './replace.js' );
+
+
 // PROCESS FILE //
 
 /**
-* FUNCTION process( path, config )
+* FUNCTION process( path, config, clbk )
 *    Processes a file and performs de-identification tasks.
 *
 * @param {String} path - full path of the file
-* @param {Object} config - config object indicating which actions to performs
-* @returns {String} de-identified text
+* @param {Object} config - config object indicating which actions to perform
+* @param {Function} clbk - callback function receiving the replaced text
 */
 function process( path, config, clbk ) {
 	textract.fromFileWithPath( path, function( err, text ) {
-		var original = text;
+		var actions = [],
+			original = text;
+
+		actions.push( function( clbk ) {
+			clbk( null, text );
+		});
 		if ( config.dates === true ) {
-			var re = /\d{2}[./-]\d{2}[./-]\d{4}/g;
-			text = text.replace( re, '<date>' );
+			actions.push( function replaceDate( text, clbk ) {
+				replace( text, 'dates', function( err, res ) {
+					clbk( err, res );
+				});
+			});
 		}
 		if ( config.phone === true ) {
-			text = text.replace( /(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}/g, '<phone number>' );
+			actions.push( function replacePhone( text, clbk ) {
+				replace( text, 'phone', function( err, res ) {
+					clbk( err, res );
+				});
+			});
 		}
 		if ( config.fax === true ) {
-			text = text.replace( /\+?[0-9]{7,}/g, '<fax number>' );
+			actions.push( function replaceFax( text, clbk ) {
+				replace( text, 'fax', function( err, res ) {
+					clbk( err, res );
+				});
+			});
 		}
 		if ( config.emails === true ) {
-			text = text.replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/gi, '<email>' );
+			actions.push( function replaceEmails( text, clbk ) {
+				replace( text, 'emails', function( err, res ) {
+					clbk( err, res );
+				});
+			});
 		}
 		if ( config.ssn === true ) {
-			text = text.replace(/\d{3}-?\d{2}-?\d{4}/g, 'XXX-XX-XXX' );
+			actions.push( function replaceSSN( text, clbk ) {
+				replace( text, 'ssn', function( err, res ) {
+					clbk( err, res );
+				});
+			});
 		}
 		if ( config.vehicles === true ) {
-			text = text.replace( /[A-Z]{1,3}-[A-Z]{1,2}-[0-9]{1,4}/g, '<license plate>' );
+			actions.push( function replaceVehicles( text, clbk ) {
+				replace( text, 'vehicles', function( err, res ) {
+					clbk( err, res );
+				});
+			});
 		}
-		ner.fromFile( path, function( entities ) {
-			var i;
-			if ( config.names === true ) {
-				if ( entities.PERSON ) {
-					for ( i = 0; i < entities.PERSON.length; i++ ) {
-						text = text.replace( entities.PERSON[ i ], '<name>' );
+
+		async.waterfall( actions, function( err, resultText ) {
+			var names = [],
+				locations = [];
+
+			ner.fromFile( path, function( entities ) {
+				var i;
+				if ( config.names === true ) {
+					if ( entities.PERSON ) {
+						for ( i = 0; i < entities.PERSON.length; i++ ) {
+							names.push( entities.PERSON[ i ] );
+						}
 					}
 				}
-			}
-			if ( config.locations === true ) {
-				if ( entities.LOCATION ) {
-					for ( i = 0; i < entities.LOCATION.length; i++ ) {
-						text = text.replace( entities.LOCATION[ i ], '<location>' );
+				if ( config.locations === true ) {
+					if ( entities.LOCATION ) {
+						for ( i = 0; i < entities.LOCATION.length; i++ ) {
+							locations.push( entities.LOCATION[ i ] );
+						}
 					}
 				}
-			}
-			clbk( err, {
-				'processed': text,
-				'original': original
+
+				async.parallel([
+					function( callback ) {
+						async.map( names, function getName( item, clbk ) {
+							getReplacement( item, 'names', function( err, res ) {
+								clbk( null, res );
+							});
+						}, callback );
+					},
+					function( callback ) {
+						async.map( locations, function getLocations( item, clbk ) {
+							getReplacement( item, 'locations', function( err, res ) {
+								clbk( null, res );
+							});
+						}, callback );
+					}
+				], function( err, results ) {
+					if ( config.names === true ) {
+						var newNames = results[ 0 ];
+						for ( i = 0; i < newNames.length; i++ ) {
+							resultText = resultText.replace( names[ i ], newNames[ i ] );
+						}
+					}
+					if ( config.locations === true ) {
+						var newLocations = results[ 1 ];
+						for ( i = 0; i < newLocations.length; i++ ) {
+							resultText = resultText.replace( locations[ i ], newLocations[ i ] );
+						}
+					}
+					clbk( err, {
+						'processed': resultText,
+						'original': original
+					});
+				});
 			});
 		});
 	});

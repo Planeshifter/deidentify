@@ -17,9 +17,7 @@
     "type": "git",
     "url": "git://github.com/Planeshifter/deidentify.git"
   },
-  "keywords": {
-
-  },
+  "keywords": {},
   "window": {
     "frame": true,
     "toolbar": true,
@@ -28,10 +26,15 @@
     "resizable": false
   },
   "dependencies": {
+    "async": "^1.4.2",
+    "async-replace": "^1.0.0",
     "bootstrap": "^3.3.5",
+    "chance": "^0.7.7",
     "jquery": "^2.1.4",
     "markdown": "^0.5.0",
+    "nedb": "^1.1.4",
     "node-ner": "0.0.3",
+    "readdirp": "^2.0.0",
     "textract": "^1.1.1"
   }
 }

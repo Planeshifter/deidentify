@@ -1,40 +1,198 @@
+@font-face {
+	font-family: Oswald;
+	src: url(../fonts/Oswald-Regular.ttf);
+}
+
+#splashScreen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	background: white;
+	overflow: hidden;
+}
+
+#fileProcessDiv {
+	position: absolute;
+	display: none;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background: white;
+}
+
+#batchProcessDiv {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: white;
+}
+
+#dictDiv {
+	display: none;
+	padding: 2%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: white;
+}
+
+#startBatch {
+	position: absolute;
+	left: 20%;
+	top: 60%;
+	width: auto;
+	height: auto;
+	padding: 12px;
+	background: gainsboro;
+	box-shadow: 0 0 10px black;
+	font-size: 32px;
+	font-family: Oswald;
+	text-align: center;
+	color: darkgrey;
+}
+
+#startBatch:hover {
+	background: darkgrey;
+	color: black;
+	cursor: pointer;
+}
+
+#startBatch input {
+	display: none;
+}
+
+#batchVal {
+	position: absolute;
+	top: 15px;
+	left: 200px;
+	width: auto;
+	height: auto;
+	font-size: 16px;
+	color: black;
+}
+
+
 #cmu_logo {
-    position: absolute;
-    left: 850px;
-    top: 20px;
+	position: absolute;
+	right: -500px;
+	top: 20px;
+	width: 220px;
+	height: auto;
+	opacity: 0.2;
+}
+
+#cmu_logo img {
+	width: 100%;
+	height: auto;
+}
+
+#deidentifyTitle {
+	font-size: 4em;
+	position: absolute;
+	left: 40%;
+	top: 20px;
+	width: auto;
+	height: auto;
+	font-family: Oswald;
+	color: darkcyan;
+}
+
+#deidentifySubtitle {
+	font-size: 2em;
+	position: absolute;
+	left: 40%;
+	top: 15%;
+	width: auto;
+	height: auto;
+	font-family: Oswald;
+	color: darkcyan;
+}
+
+#fileProcess {
+	position: absolute;
+	left: 20%;
+	top: 60%;
+	width: auto;
+	height: auto;
+	padding: 12px;
+	background: gainsboro;
+	box-shadow: 0 0 10px black;
+	font-size: 48px;
+	font-family: Oswald;
+	text-align: center;
+	color: darkgrey;
+}
+
+#fileProcess:hover {
+	color: black;
+	background: darkgrey;
+	cursor: pointer;
+}
+
+#batchProcess {
+	position: absolute;
+	right: 20%;
+	top: 60%;
+	width: auto;
+	height: auto;
+	padding: 12px;
+	background: gainsboro;
+	box-shadow: 0 0 10px black;
+	font-size: 48px;
+	font-family: Oswald;
+	text-align: center;
+	color: darkgrey;
+}
+
+#batchProcess:hover {
+	color: black;
+	background: darkgrey;
+	cursor: pointer;
 }
 
 #panels {
-    width: 90%;
-    margin:0px auto;
+	width: 90%;
+	margin:0px auto;
 }
 
 #process_div {
-    margin: 10px;
-    display: none;
+	margin: 10px;
+	display: none;
 }
 
 #save_form {
-    display: none
+	display: none
 }
 
 #process_btn {
-    width: 25%;
-    height: 40px;
-    margin:0px auto;
+	width: 25%;
+	height: 40px;
+	margin:0px auto;
 }
 
 #holder {
-    border: 10px
-    dashed #ccc;
-    width: 200px;
-    height: 200px;
-    margin: 20px auto;
-    font-size: 1.8em;
-    line-height: 180px;
-    white-space: nowrap;
+	border: 10px
+	dashed #ccc;
+	width: 200px;
+	height: 200px;
+	margin: 20px auto;
+	font-size: 1.8em;
+	line-height: 180px;
+	white-space: nowrap;
 }
 
 #holder.hover {
-    border: 10px dashed #333;
+	border: 10px dashed #333;
 }

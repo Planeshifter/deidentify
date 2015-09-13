@@ -3,152 +3,103 @@
 	<head>
 		<title>deidentify</title>
 		<link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="deps/DataTables/datatables.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+		<script type="text/javascript" src="deps/DataTables/datatables.min.js"></script>
+		<script type="text/javascript" src="./node_modules/liquid-screen/dist/liquid.js"></script>
 	</head>
 	<body>
-	<img id="cmu_logo" src="img/CMU_logo_stack_cmyk_red.jpg" alt="CMU Logo" width="15%"/>
-	<h3 style="margin:5px"> Drag a file here: </h2>
-	<div id="holder">
-		<span id="filePathHolder"></span>
+	<div id="splashScreen">
+		<div id="cmu_logo" >
+			<img src="img/CMU_logo_stack_cmyk_red.jpg" alt="CMU Logo"/>
+		</div>
+		<div id="deidentifyTitle">deidentify</div>
+		<div id="deidentifySubtitle">De-identification of Protected Information</div>
+		<div id="fileProcess">Process File</div>
+		<div id="batchProcess">Batch Process</div>
 	</div>
-	<div id="panels" class="row">
-		<div class="col-sm-4">
-			<div class="panel panel-default">
+	<div id="fileProcessDiv">
+		<h3 style="margin:5px"> Drag a file here: </h2>
+		<div id="holder">
+			<span id="filePathHolder"></span>
+		</div>
+		<div id="panels" class="row">
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Select text content to be removed:</h3>
+					</div>
+					<div class="panel-body">
+						<div class="checkbox btn-group">
+							<label><input id="check_names" type="checkbox" value="" checked>Names</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="check_locations" type="checkbox" value="" checked>Locations</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="check_phone" type="checkbox" value="" checked>Telephone Numbers</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="check_fax" type="checkbox" value="" checked>Fax Numbers</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="check_emails" type="checkbox" value="" checked>Email Addresses</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="check_dates" type="checkbox" value="" checked>Dates</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="check_ssn" type="checkbox" value="" checked>Social Security Numbers (SSN)</label>
+						</div>
+						<div class="checkbox">
+							<label><input id="check_vehicles" type="checkbox" value="" checked>Vehicle Identifiers</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Original:</h3>
+					</div>
+					<div id="original_panel" class="panel-body">
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">De-identified:</h3>
+					</div>
+					<div id="deidentified_panel" class="panel-body">
+					</div>
+				</div>
+			</div>
+			</div>
+			<div id="process_div" class="text-center">
+				<button id="process_btn" type="button" class="btn btn-primary center-block">Process Document</button>
+			</div>
+			<div id="save_form" class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Select text content to be removed:</h3>
+					<h3 class="panel-title">Save de-identified file:</h3>
 				</div>
-				<div class="panel-body">
-					<div class="checkbox btn-group">
-						<label><input id="check_names" type="checkbox" value="" checked>Names</label>
-					</div>
-					<div class="checkbox">
-						<label><input id="check_locations" type="checkbox" value="" checked>Locations</label>
-					</div>
-					<div class="checkbox">
-						<label><input id="check_phone" type="checkbox" value="" checked>Telephone Numbers</label>
-					</div>
-					<div class="checkbox">
-						<label><input id="check_fax" type="checkbox" value="" checked>Fax Numbers</label>
-					</div>
-					<div class="checkbox">
-						<label><input id="check_emails" type="checkbox" value="" checked>Email Addresses</label>
-					</div>
-					<div class="checkbox">
-						<label><input id="check_dates" type="checkbox" value="" checked>Dates</label>
-					</div>
-					<div class="checkbox">
-						<label><input id="check_ssn" type="checkbox" value="" checked>Social Security Numbers (SSN)</label>
-					</div>
-					<div class="checkbox">
-						<label><input id="check_vehicles" type="checkbox" value="" checked>Vehicle Identifiers</label>
-					</div>
+				<div id="save_holder" class="panel-body">
 				</div>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Original:</h3>
-				</div>
-				<div id="original_panel" class="panel-body">
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">De-identified:</h3>
-				</div>
-				<div id="deidentified_panel" class="panel-body">
-				</div>
-			</div>
-		</div>
-		</div>
-		<div id="process_div" class="text-center">
-			<button id="process_btn" onclick="processFile()" type="button" class="btn btn-primary center-block">Process Document</button>
-		</div>
-		<div id="save_form" class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Save de-identified file:</h3>
-			</div>
-			<div id="save_holder" class="panel-body">
 			</div>
 		</div>
 	</div>
-	<script>
-	// MODULES //
-
-	var gui = require( 'nw.gui' );
-	var process = require( './js/process.js' );
-	var saveFile = require( './js/saveFile.js' );
-	var path = require( 'path' );
-	var util = require( 'util' );
-
-
-	// Prevent default behavior from changing page on dropped file
-	window.ondragover = function(e) {
-		e.preventDefault();
-		return false;
-	};
-	window.ondrop = function(e) {
-		e.preventDefault();
-		return false;
-	};
-	var file = [];
-
-	var holder = document.getElementById( 'holder' );
-
-	holder.ondragover = function () {
-		this.className = 'hover'; return false;
-	};
-	holder.ondragleave = function () {
-		this.className = '';
-		return false;
-	};
-	holder.ondrop = function (e) {
-		e.preventDefault();
-
-		console.log( util.inspect( e.dataTransfer ) );
-
-		for (var i = 0; i < e.dataTransfer.files.length; ++i) {
-			file = e.dataTransfer.files[i].path;
-		}
-
-		$( '#filePathHolder' ).text( path.basename( file ) );
-		$( '#process_div' ).show();
-		return false;
-	};
-
-	function processFile(){
-		var config = {
-			'names': $('#check_names').is(':checked'),
-			'locations': $('#check_locations').is(':checked'),
-			'dates': $('#check_dates').is(':checked'),
-			'phone': $('#check_phone').is(':checked'),
-			'fax': $('#check_fax').is(':checked'),
-			'emails': $('#check_emails').is(':checked'),
-			'ssn': $('#check_ssn').is(':checked'),
-			'vehicles': $('#check_vehicles').is(':checked')
-		};
-		process( file, config, function( err, res ) {
-			$( '#original_panel' ).text( res.original );
-			$( '#deidentified_panel' ).text( res.processed );
-			$( '#save_holder' ).html( '<input id="save_btn" type="file" class="form-control" nwsaveas=' + file + '/>');
-			$( '#save_form' ).show();
-			document
-				.querySelector( '#save_btn' )
-				.addEventListener( 'change', function(){
-					var filePath = this.value;
-					saveFile( filePath, res.processed, function( err, res ) {
-						$( '#save_form' ).hide();
-						gui.Shell.openItem( filePath );
-						alert( 'File successfully saved!' );
-					});
-				});
-		});
-	}
-
-</script>
-	<script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
-    </body>
+	<div id="batchProcessDiv">
+		<div id="startBatch">
+			<input id="batchInput" type="file" nwdirectory />
+			<span id="batchFileButton">Select folder</span>
+			<span id="batchVal"></span>
+		</div>
+	</div>
+	<div id="dictDiv">
+		<table id="dictTable"></table>
+	</div>
+	<script type="text/javascript" src="./js/main.js"></script>
+</body>
 </html>
