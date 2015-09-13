@@ -1,4 +1,4 @@
 {
-  "cmd": "nw",
+  "cmd": "nw app/",
   "args": ["enable-logging"]
 }

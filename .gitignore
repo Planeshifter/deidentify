@@ -7,7 +7,7 @@
 ###############
 reports/
 build/
-stanford-ner-*/
+app/stanford-ner-*/
 
 # Compiled source #
 ###################
@@ -78,6 +78,7 @@ Desktop.ini
 # Node.js #
 ###########
 /node_modules/
+app/node_modules/
 pids
 *.pid
 *.seed
