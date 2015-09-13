@@ -1,0 +1,3 @@
+Hello, my name is Philipp Burckhardt. I am a student at Carnegie Mellon University in Pittsburgh. My email address is pgb@andrew.cmu.edu, and I was born on 01/23/1990. My phone number is 412-576-5703.
+
+I am teaching for Daniel Nagin and David M. Choi.
