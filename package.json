@@ -22,7 +22,15 @@
       "email": "pburckhardt@outlook.com"
     }
   ],
-  "license": "GPL-2",
+  "keywords": [
+    "scrubbing",
+    "hipaa",
+    "de-identification",
+    "deidentification",
+    "privacy",
+    "confidential"
+  ],
+  "license": "GPL2",
   "bugs": {
     "url": "https://github.com/Planeshifter/deidentify/issues"
   },

@@ -8,6 +8,7 @@
 reports/
 build/
 app/stanford-ner-*/
+TMP/
 
 # Compiled source #
 ###################

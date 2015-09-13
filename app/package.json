@@ -17,8 +17,16 @@
     "type": "git",
     "url": "git://github.com/Planeshifter/deidentify.git"
   },
-  "keywords": {},
+  "keywords": [
+    "scrubbing",
+    "hipaa",
+    "de-identification",
+    "deidentification",
+    "privacy",
+    "confidential"
+  ],
   "window": {
+    "icon": "./img/app.jpg",
     "frame": true,
     "toolbar": true,
     "height": 768,
