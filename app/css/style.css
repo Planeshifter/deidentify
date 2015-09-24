@@ -208,3 +208,7 @@
 #holder.hover {
 	border: 10px dashed #333;
 }
+
+.confirmationDialog {
+	padding: 6px;
+}

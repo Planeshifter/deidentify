@@ -7,13 +7,24 @@ $(document).ready( function ready() {
 	var gui = require( 'nw.gui' ),
 		path = require( 'path' );
 
+
+	// DATABASE //
+	var db = require( './js/DB.js' );
+
+
+	// FUNCTIONS //
+
 	var runBatchProcess = require( './js/batchProcess.js'),
 		runProcess = require( './js/process.js' ),
 		saveFile = require( './js/saveFile.js' ),
 		showTable = require( './js/showTable.js' );
 
+
+	// ELEMENTS //
+
 	var $batchProcessDiv = $( '#batchProcessDiv' ),
 		$dictDiv = $( '#dictDiv' ),
+		$dictTitle = $( '#dictTitle' ),
 		$fileProcess = $( '#fileProcess' ),
 		$fileProcessDiv = $( '#fileProcessDiv' ),
 		$optionsDiv = $( '#optionsDiv' ),
@@ -102,6 +113,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$dictTitle.text( 'Names' );
 			$dictDiv.show();
 			var $dictTable = $( '#dictTable' );
 			showTable( 'names', $dictTable );
@@ -113,6 +125,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$dictTitle.text( 'Locations' );
 			$dictDiv.show();
 			var $dictTable = $( '#dictTable' );
 			showTable( 'locations', $dictTable );
@@ -125,6 +138,7 @@ $(document).ready( function ready() {
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
 			$dictDiv.show();
+			$dictTitle.text( 'Dates' );
 			var $dictTable = $( '#dictTable' );
 			showTable( 'dates', $dictTable );
 		}
@@ -136,6 +150,7 @@ $(document).ready( function ready() {
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
 			$dictDiv.show();
+			$dictTitle.text( 'Emails' );
 			var $dictTable = $( '#dictTable' );
 			showTable( 'emails', $dictTable );
 		}
@@ -146,8 +161,20 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$dictDiv.show();
+			$dictTitle.text( 'Fax Numbers' );
 			var $dictTable = $( '#dictTable' );
 			showTable( 'fax', $dictTable );
+		}
+	}));
+	displayMenuItem.submenu.append( new gui.MenuItem({
+		'label': 'IP Addresses',
+		'click': function showDict() {
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$dictDiv.show();
+			$dictTitle.text( 'IP Addresses' );
+			var $dictTable = $( '#dictTable' );
+			showTable( 'ip', $dictTable );
 		}
 	}));
 	displayMenuItem.submenu.append( new gui.MenuItem({
@@ -156,8 +183,20 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$dictDiv.show();
+			$dictTitle.text( 'Phone Numbers' );
 			var $dictTable = $( '#dictTable' );
 			showTable( 'phone', $dictTable );
+		}
+	}));
+	displayMenuItem.submenu.append( new gui.MenuItem({
+		'label': 'URLs',
+		'click': function showDict() {
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$dictDiv.show();
+			$dictTitle.text( 'URLs' );
+			var $dictTable = $( '#dictTable' );
+			showTable( 'urls', $dictTable );
 		}
 	}));
 	displayMenuItem.submenu.append( new gui.MenuItem({
@@ -166,6 +205,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$dictDiv.show();
+			$dictTitle.text( 'Social Security Numbers (SSN)' );
 			var $dictTable = $( '#dictTable' );
 			showTable( 'ssn', $dictTable );
 		}
@@ -176,16 +216,32 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$dictDiv.show();
+			$dictTitle.text( 'Vehicle Identifiers' );
 			var $dictTable = $( '#dictTable' );
 			showTable( 'vehicles', $dictTable );
 		}
 	}));
 
 	secondMenuItem.submenu.append( new gui.MenuItem({
-		'label': 'Save',
-		'click': function saveDict() {
+		'label': 'Reset',
+		'click': function resetDict() {
+			var win = gui.Window.open( './reset.html', {
+				'position': 'center',
+				'width': 350,
+				'height': 175,
+				'resizable': false,
+				'focus': true,
+				'toolbar': false
+			});
+			win.on( 'closed', function() {
+				this.hide();
+				if (win !== null) {
+					win.close(true);
+				}
+				this.close(true);
+			});
 		},
-		'key': 's'
+		'key': 'r'
 	}));
 
 	var fourthMenuItem = new gui.MenuItem({

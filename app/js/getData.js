@@ -29,6 +29,9 @@ function getData( type, clbk ) {
 	case 'fax':
 		db = DB.FAX;
 	break;
+	case 'ip':
+		db = DB.IP;
+	break;
 	case 'locations':
 		db = DB.LOCATIONS;
 	break;
@@ -40,6 +43,9 @@ function getData( type, clbk ) {
 	break;
 	case 'ssn':
 		db = DB.SSN;
+	break;
+	case 'urls':
+		db = DB.URLS;
 	break;
 	case 'vehicles':
 		db = DB.VEHICLES;

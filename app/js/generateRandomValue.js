@@ -25,6 +25,8 @@ function generateRandomValue( type ) {
 		return chance.email();
 	case 'fax':
 		return chance.phone( { country: 'us' } );
+	case 'ip':
+		return chance.ip();
 	case 'locations':
 		return chance.city();
 	case 'names':
@@ -33,6 +35,8 @@ function generateRandomValue( type ) {
 		return chance.phone( { country: 'us' } );
 	case 'ssn':
 		return chance.ssn();
+	case 'urls':
+		return chance.url();
 	case 'vehicles':
 		return chance.ssn();
 	}
