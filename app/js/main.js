@@ -160,6 +160,7 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Fax Numbers' );
 			var $dictTable = $( '#dictTable' );
@@ -171,6 +172,7 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'IP Addresses' );
 			var $dictTable = $( '#dictTable' );
@@ -182,6 +184,7 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Phone Numbers' );
 			var $dictTable = $( '#dictTable' );
@@ -193,6 +196,7 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'URLs' );
 			var $dictTable = $( '#dictTable' );
@@ -204,6 +208,7 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Social Security Numbers (SSN)' );
 			var $dictTable = $( '#dictTable' );
@@ -215,6 +220,7 @@ $(document).ready( function ready() {
 		'click': function showDict() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
+			$optionsDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Vehicle Identifiers' );
 			var $dictTable = $( '#dictTable' );
@@ -295,14 +301,16 @@ $(document).ready( function ready() {
 
 	function processFile(){
 		var config = {
-			'names': $('#check_names').is(':checked'),
-			'locations': $('#check_locations').is(':checked'),
-			'dates': $('#check_dates').is(':checked'),
-			'phone': $('#check_phone').is(':checked'),
-			'fax': $('#check_fax').is(':checked'),
-			'emails': $('#check_emails').is(':checked'),
-			'ssn': $('#check_ssn').is(':checked'),
-			'vehicles': $('#check_vehicles').is(':checked')
+			'names': $( '#check_names' ).is( ':checked' ),
+			'locations': $( '#check_locations' ).is( ':checked' ),
+			'dates': $( '#check_dates' ).is( ':checked' ),
+			'phone': $( '#check_phone' ).is( ':checked' ),
+			'fax': $( '#check_fax' ).is( ':checked' ),
+			'ip': $( '#check_ip' ).is( ':checked' ),
+			'urls': $( '#check_urls' ).is( ':checked' ),
+			'emails': $( '#check_emails' ).is( ':checked' ),
+			'ssn': $( '#check_ssn' ).is( ':checked' ),
+			'vehicles': $( '#check_vehicles' ).is( ':checked' )
 		};
 		runProcess( file, config, function( err, res ) {
 			$( '#original_panel' ).text( res.original );
@@ -324,18 +332,28 @@ $(document).ready( function ready() {
 
 	$( '#batchInput').change( function onBatchChange() {
 		var dir = $( '#batchInput' ).val();
-		var config = {
-			'names': $('#check_names').is(':checked'),
-			'locations': $('#check_locations').is(':checked'),
-			'dates': $('#check_dates').is(':checked'),
-			'phone': $('#check_phone').is(':checked'),
-			'fax': $('#check_fax').is(':checked'),
-			'emails': $('#check_emails').is(':checked'),
-			'ssn': $('#check_ssn').is(':checked'),
-			'vehicles': $('#check_vehicles').is(':checked')
-		};
-		runBatchProcess( dir, config, function() {
-			alert( 'Files successfully processed!' );
+		$( '#runBatch_div' ).show();
+		$( '#runBatch_btn').click( function onClick() {
+			var config = {
+				'names': $('#check_names').is(':checked'),
+				'locations': $('#check_locations').is(':checked'),
+				'dates': $('#check_dates').is(':checked'),
+				'phone': $('#check_phone').is(':checked'),
+				'fax': $('#check_fax').is(':checked'),
+				'ip': $( '#check_ip' ).is( ':checked' ),
+				'urls': $( '#check_urls' ).is( ':checked' ),
+				'emails': $('#check_emails').is(':checked'),
+				'ssn': $('#check_ssn').is(':checked'),
+				'vehicles': $('#check_vehicles').is(':checked'),
+				'fileExtensions': {
+					'doc': $( '#ext_doc' ).is( ':checked' ),
+					'docx': $( '#ext_docx' ).is( ':checked' ),
+					'pdf': $( '#ext_pdf' ).is( ':checked' ),
+					'txt': $( '#ext_txt' ).is( ':checked' ),
+				}
+			};
+			$( '#runBatch_progress').show();
+			runBatchProcess( dir, config );
 		});
 	});
 

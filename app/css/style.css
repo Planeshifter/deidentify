@@ -61,9 +61,6 @@
 }
 
 #startBatch {
-	position: absolute;
-	left: 20%;
-	top: 60%;
 	width: auto;
 	height: auto;
 	padding: 12px;
@@ -71,8 +68,9 @@
 	box-shadow: 0 0 10px black;
 	font-size: 32px;
 	font-family: Oswald;
-	text-align: center;
+	text-align: left;
 	color: darkgrey;
+	margin: 10px;
 }
 
 #startBatch:hover {
@@ -184,6 +182,23 @@
 	display: none;
 }
 
+#runBatch_div {
+	margin: 10px;
+	display: none;
+}
+
+#runBatch_progress {
+	height: 8%;
+	margin: 20px;
+	display: none;
+}
+
+#runBatch_progressBar {
+	font-size: 2em;
+	vertical-align: middle;
+	line-height: 100%;
+}
+
 #save_form {
 	display: none
 }
@@ -211,4 +226,8 @@
 
 .confirmationDialog {
 	padding: 6px;
+}
+
+#extPanel {
+	margin: 1%;
 }

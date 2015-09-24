@@ -16,7 +16,7 @@ var fs = require( 'fs' );
 * @param {Function} clbk - callback function
 */
 function saveFile( path, text, clbk ) {
-    fs.writeFile( path, text, clbk );
+	fs.writeFile( path, text, clbk );
 } // end FUNCTION saveFile()
 
 

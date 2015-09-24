@@ -63,6 +63,33 @@
 			<span id="batchFileButton">Select folder</span>
 			<span id="batchVal"></span>
 		</div>
+		<div id="extPanel" class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Process files of the following types:</h3>
+			</div>
+			<div class="panel-body btn-group-vertical">
+				<div class="checkbox btn-group">
+					<label><input id="ext_doc" type="checkbox" value="">doc</label>
+				</div>
+				<div class="checkbox btn-group">
+					<label><input id="ext_docx" type="checkbox" value="">docx</label>
+				</div>
+				<div class="checkbox btn-group">
+					<label><input id="ext_txt" type="checkbox" value="">txt</label>
+				</div>
+				<div class="checkbox btn-group">
+					<label><input id="ext_pdf" type="checkbox" value="">pdf</label>
+				</div>
+			</div>
+		</div>
+		<div id="runBatch_div" class="text-center">
+			<button id="runBatch_btn" type="button" class="btn btn-primary center-block">Process Documents</button>
+		</div>
+		<div id="runBatch_progress" class="progress">
+			<div id="runBatch_progressBar" class="progress-bar progress-bar-striped active" role="progressbar"
+			aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+			</div>
+		</div>
 	</div>
 	<div id="dictDiv">
 		<h2 id="dictTitle"></h2>
@@ -88,6 +115,12 @@
 				</div>
 				<div class="checkbox">
 					<label><input id="check_emails" type="checkbox" value="" checked>Email Addresses</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_ip" type="checkbox" value="" checked>IP Addresses</label>
+				</div>
+				<div class="checkbox">
+					<label><input id="check_urls" type="checkbox" value="" checked>URLs</label>
 				</div>
 				<div class="checkbox">
 					<label><input id="check_dates" type="checkbox" value="" checked>Dates</label>
