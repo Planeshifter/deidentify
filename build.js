@@ -36,8 +36,9 @@ function buildExecutables() {
 		cmd = 'sh ' + path.join( dirName, 'script/nwjs-shell-builder/nwjs-build.sh' ); 
 		cmd += ' --name="deidentify"';
 		cmd += ' --src="' + path.join( dirName, 'app' ) + '"';
-		cmd += ' --win-icon="' + path.join( dirName, 'resources/app.ico' ) + '"';
-		cmd += ' --target="3" --output-dir="' + path.join( dirName, 'build' ) + '" --build';
+		cmd += ' --win-icon="' + path.join( dirName, 'app/app.ico' ) + '"';
+		cmd += ' --target="0 1 2 3 4 5"'
+		cmd += ' --output-dir="' + path.join( dirName, 'build' ) + '" --build';
 	
 	console.log( cmd )
 	childProcess.exec( cmd, {}, function( err, stdout ) {

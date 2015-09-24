@@ -1,6 +1,6 @@
 {
   "name": "deidentify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "De-identification of Protected Health Information according to HIPAA Privacy Rule",
   "author": {
     "name": "Philipp Burckhardt",
