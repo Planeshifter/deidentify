@@ -28,7 +28,7 @@
   "window": {
     "icon": "./img/app.jpg",
     "frame": true,
-    "toolbar": true,
+    "toolbar": false,
     "height": 768,
     "width": 1024,
     "resizable": false

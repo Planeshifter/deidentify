@@ -1,0 +1,12 @@
+{
+  "name": "deidentify",
+  "version": "0.1.1",
+  "description": "De-identification of protected health information in unstructured text.",
+  "src": "./app",
+  "nwjsVersion": "0.12.2",
+  "iconPath": "./app/img/app.jpg",
+  "windowsIconPath": "./app/app.ico",
+  "osxIconPath": "./app/app.icns",
+  "CFBundleIdentifier": "com.philip-burckhardt.deidentify",
+  "license": "LICENSE"
+}

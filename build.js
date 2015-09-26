@@ -33,19 +33,35 @@ fs.stat( dirPath, function( err, stat ) {
 function buildExecutables() {
 	console.log( '2. Create Builds.' );
 	var dirName = __dirname,
-		cmd = 'sh ' + path.join( dirName, 'script/nwjs-shell-builder/nwjs-build.sh' ); 
+		cmd = 'sh ' + path.join( dirName, 'script/nwjs-shell-builder/nwjs-build.sh' );
 		cmd += ' --name="deidentify"';
 		cmd += ' --src="' + path.join( dirName, 'app' ) + '"';
 		cmd += ' --win-icon="' + path.join( dirName, 'app/app.ico' ) + '"';
-		cmd += ' --target="0 1 2 3 4 5"'
+		cmd += ' --target="0 1 2 3 4 5"';
 		cmd += ' --output-dir="' + path.join( dirName, 'build' ) + '" --build';
-	
-	console.log( cmd )
-	childProcess.exec( cmd, {}, function( err, stdout ) {
+
+	console.log( cmd );
+	childProcess.exec( cmd, {}, function onCompletion( err ) {
 		if ( err ) {
 			throw new Error( 'build::Build processes finished with errors. Value: `' + err + '`' );
 		} else {
-			console.log( '2. Done. Builds successfully created')
+			console.log( '2. Done. Builds successfully created.' );
 		}
+		createInstaller();
 	});
 }
+
+/**
+* FUNCTION createInstaller()
+*	Generates installers for Windows, Linus and MacOS.
+*
+*/
+function createInstaller() {
+	childProcess.exec( './pack.sh --all', {}, function onCompletion( err ) {
+		if ( err ) {
+			throw new Error( 'build::Installer build processes finished with errors. Value: `' + err + '`' );
+		} else {
+			console.log( '3. Done. Installers successfully created.' );
+		}
+	});
+} // end FUNCTION createInstaller()
