@@ -2,11 +2,11 @@
   "name": "deidentify",
   "version": "0.1.1",
   "description": "De-identification of protected health information in unstructured text.",
-  "src": "./app",
+  "src": "/home/philipp/git/deidentify/app",
   "nwjsVersion": "0.12.2",
-  "iconPath": "./app/img/app.jpg",
-  "windowsIconPath": "./app/app.ico",
-  "osxIconPath": "./app/app.icns",
+  "iconPath": "/home/philipp/git/deidentify/app/img/app.jpg",
+  "windowsIconPath": "/home/philipp/git/deidentify/app/app.ico",
+  "osxIconPath": "/home/philipp/git/deidentify/app/app.icns",
   "CFBundleIdentifier": "com.philip-burckhardt.deidentify",
-  "license": "LICENSE"
+  "license": "/home/philipp/git/deidentify/LICENSE"
 }

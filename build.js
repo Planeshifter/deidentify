@@ -7,7 +7,8 @@
 var childProcess = require( 'child_process' ),
 	Download = require( 'download' ),
 	fs = require( 'fs' ),
-	path = require( 'path' );
+	path = require( 'path' ),
+	spawn = childProcess.spawn;
 
 
 // VARIABLES //
@@ -33,35 +34,49 @@ fs.stat( dirPath, function( err, stat ) {
 function buildExecutables() {
 	console.log( '2. Create Builds.' );
 	var dirName = __dirname,
-		cmd = 'sh ' + path.join( dirName, 'script/nwjs-shell-builder/nwjs-build.sh' );
-		cmd += ' --name="deidentify"';
-		cmd += ' --src="' + path.join( dirName, 'app' ) + '"';
-		cmd += ' --win-icon="' + path.join( dirName, 'app/app.ico' ) + '"';
-		cmd += ' --target="0 1 2 3 4 5"';
-		cmd += ' --output-dir="' + path.join( dirName, 'build' ) + '" --build';
+		cmd = path.join( dirName, 'script/nwjs-shell-builder/nwjs-build.sh' ),
+		args = [
+			'--name=deidentify',
+			'--src=' + path.join( dirName, 'app' ),
+			'--win-icon=' + path.join( dirName, 'app/app.ico' ),
+			'--target=0 1 2 3 4 5',
+			'--output-dir=' + path.join( dirName, 'dist' ),
+			'--build'
+		];
 
-	console.log( cmd );
-	childProcess.exec( cmd, {}, function onCompletion( err ) {
-		if ( err ) {
-			throw new Error( 'build::Build processes finished with errors. Value: `' + err + '`' );
-		} else {
-			console.log( '2. Done. Builds successfully created.' );
-		}
-		createInstaller();
+	var build = spawn( cmd, args );
+	build.stdout.on('data', function (data) {
+		console.log('stdout: ' + data);
 	});
+	build.stderr.on('data', function (data) {
+		console.log('stderr: ' + data);
+	});
+	build.on('close', function (code) {
+		console.log('child process exited with code ' + code);
+		createInstallers();
+	});
+
 }
 
 /**
-* FUNCTION createInstaller()
+* FUNCTION createInstallers()
 *	Generates installers for Windows, Linus and MacOS.
 *
 */
-function createInstaller() {
-	childProcess.exec( './pack.sh --all', {}, function onCompletion( err ) {
-		if ( err ) {
-			throw new Error( 'build::Installer build processes finished with errors. Value: `' + err + '`' );
-		} else {
-			console.log( '3. Done. Installers successfully created.' );
-		}
+function createInstallers() {
+	console.log( '3. Create installers' );
+	var cmd = path.join( __dirname, 'script/nwjs-shell-builder/pack.sh' );
+	var args = [ '--all', '--config=' + path.join( __dirname, 'config.json' ) ];
+	var installers = spawn( cmd, args, {
+		cwd: path.join( __dirname, 'script/nwjs-shell-builder' )
 	});
-} // end FUNCTION createInstaller()
+	installers.stdout.on('data', function (data) {
+		console.log('stdout: ' + data);
+	});
+	installers.stderr.on('data', function (data) {
+		console.log('stderr: ' + data);
+	});
+	installers.on('close', function (code) {
+		console.log('Child process exited with code ' + code);
+	});
+} // end FUNCTION createInstallers()
