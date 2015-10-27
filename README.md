@@ -4,7 +4,7 @@
 
 | File Processing | Batch Processing |
 |:------|:------|
-| <img src="https://cdn.rawgit.com/Planeshifter/deidentify/9ad934e6800b979d711dd9626553f2fbe87a0ed6/docs/img/screenshot01.png" width="400px" alt="file"> | <img src="https://cdn.rawgit.com/Planeshifter/deidentify/9ad934e6800b979d711dd9626553f2fbe87a0ed6/docs/img/screenshot02.jpg" width="400px" alt="batch"> |
+| <img src="https://cdn.rawgit.com/Planeshifter/deidentify/9ad934e6800b979d711dd9626553f2fbe87a0ed6/docs/img/screenshot01.png" width="300px" alt="file"> | <img src="https://cdn.rawgit.com/Planeshifter/deidentify/9ad934e6800b979d711dd9626553f2fbe87a0ed6/docs/img/screenshot02.jpg" width="300px" alt="batch"> |
 
 ## Table of Contents
 
@@ -18,7 +18,7 @@
 
 ## About
 
-> Remove personal identifiers from free-text medical record data.
+> *deidentify* is a tool to remove personal identifiers from free-text medical record data. Detected identifiers are replaced by randomly generated substitutes. Consistency of the data is preserved as the same name, phone number or location will always be mapped to the same replacement.
 
 ## Features
 
