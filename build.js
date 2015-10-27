@@ -70,13 +70,13 @@ function createInstallers() {
 	var installers = spawn( cmd, args, {
 		cwd: path.join( __dirname, 'script/nwjs-shell-builder' )
 	});
-	installers.stdout.on('data', function (data) {
-		console.log('stdout: ' + data);
+	installers.stdout.on( 'data', function( data ) {
+		console.log( 'stdout: ' + data );
 	});
-	installers.stderr.on('data', function (data) {
-		console.log('stderr: ' + data);
+	installers.stderr.on( 'data', function( data ) {
+		console.log( 'stderr: ' + data);
 	});
-	installers.on('close', function (code) {
-		console.log('Child process exited with code ' + code);
+	installers.on( 'close', function( code ) {
+		console.log( 'Child process exited with code ' + code );
 	});
 } // end FUNCTION createInstallers()
