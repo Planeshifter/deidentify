@@ -23,33 +23,7 @@ function getReplacement( text, type, clbk ) {
 	var db,
 		newVal;
 
-	switch ( type ) {
-	case 'dates':
-		db = DB.DATES;
-	break;
-	case 'emails':
-		db = DB.EMAILS;
-	break;
-	case 'fax':
-		db = DB.FAX;
-	break;
-	case 'locations':
-		db = DB.LOCATIONS;
-	break;
-	case 'names':
-		db = DB.NAMES;
-	break;
-	case 'phone':
-		db = DB.PHONE;
-	break;
-	case 'ssn':
-		db = DB.SSN;
-	break;
-	case 'vehicles':
-		db = DB.VEHICLES;
-	break;
-	}
-
+	db = DB[ type.toUpperCase() ];
 	db.findOne( { 'key': text }, function( err, doc ) {
 		if ( doc ) {
 			clbk( null, doc.value );

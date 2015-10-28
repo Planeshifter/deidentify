@@ -18,4 +18,7 @@ var config = {
 	interval: 1000,
 };
 
+
+// EXPORTS //
+
 module.exports = new window.Liquid.Events.Animator( config );

@@ -3,17 +3,18 @@
 // MODULES //
 
 var async = require( 'async' ),
-	textract = require('textract'),
-	node_ner = require('node-ner');
+	textract = require( 'textract' ),
+	NER = require( 'ner' );
 
-var ner = new node_ner({
+var ner = new NER({
 	install_path:   './stanford-ner-2014-10-26'
 });
 
 
 // FUNCTIONS //
 
-var getReplacement = require( './getReplacement.js' ),
+var generateRandomValue = require( './generateRandomValue.js' ),
+	getReplacement = require( './getReplacement.js' ),
 	replace = require( './replace.js' );
 
 
@@ -38,6 +39,13 @@ function process( path, config, clbk ) {
 		if ( config.dates === true ) {
 			actions.push( function replaceDate( text, clbk ) {
 				replace( text, 'dates', function( err, res ) {
+					clbk( err, res );
+				});
+			});
+		}
+		if ( config.names === true ) {
+			actions.push( function replaceName( text, clbk ) {
+				replace( text, 'names', function( err, res ) {
 					clbk( err, res );
 				});
 			});
@@ -80,7 +88,8 @@ function process( path, config, clbk ) {
 
 		async.waterfall( actions, function( err, resultText ) {
 			var names = [],
-				locations = [];
+				locations = [],
+				organizations = [];
 
 			ner.fromFile( path, function( entities ) {
 				var i;
@@ -95,6 +104,13 @@ function process( path, config, clbk ) {
 					if ( entities.LOCATION ) {
 						for ( i = 0; i < entities.LOCATION.length; i++ ) {
 							locations.push( entities.LOCATION[ i ] );
+						}
+					}
+				}
+				if ( config.organizations === true ) {
+					if ( entities.ORGANIZATION ) {
+						for ( i = 0; i < entities.ORGANIZATION.length; i++ ) {
+							organizations.push( entities.ORGANIZATION[ i ] );
 						}
 					}
 				}
@@ -113,6 +129,13 @@ function process( path, config, clbk ) {
 								clbk( null, res );
 							});
 						}, callback );
+					},
+					function( callback ) {
+						async.map( organizations, function getOrganizations( item, clbk ) {
+							getReplacement( item, 'organizations', function( err, res ) {
+								clbk( null, res );
+							});
+						}, callback );
 					}
 				], function( err, results ) {
 					if ( config.names === true ) {
@@ -125,6 +148,12 @@ function process( path, config, clbk ) {
 						var newLocations = results[ 1 ];
 						for ( i = 0; i < newLocations.length; i++ ) {
 							resultText = resultText.replace( locations[ i ], newLocations[ i ] );
+						}
+					}
+					if ( config.organizations === true ) {
+						var newOrganizations = results[ 2 ];
+						for ( i = 0; i < newOrganizations.length; i++ ) {
+							resultText = resultText.replace( organizations[ i ], newOrganizations[ i ] );
 						}
 					}
 					clbk( err, {

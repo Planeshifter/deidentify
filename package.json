@@ -38,5 +38,9 @@
   "devDependencies": {
     "download": "^4.2.0",
     "nw": "^0.12.3"
+  },
+  "dependencies": {
+    "faker": "^3.0.1",
+    "markdown-it": "^5.0.0"
   }
 }

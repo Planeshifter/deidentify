@@ -14,6 +14,7 @@ var db = new DB([
 	'ip',
 	'locations',
 	'names',
+	'organizations',
 	'phone',
 	'ssn',
 	'urls',

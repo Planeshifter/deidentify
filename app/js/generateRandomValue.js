@@ -2,7 +2,9 @@
 
 // MODULES //
 
-var Chance = require( 'chance' );
+var Chance = require( 'chance' ),
+	faker = require( 'faker' );
+
 
 // Instantiate Chance so it can be used
 var chance = new Chance();
@@ -12,7 +14,7 @@ var chance = new Chance();
 
 /**
 * FUNCTION generateRandomValue( type )
-*	Generates a random value of the specified type
+*	Generates a random value of the specified type.
 *
 * @param {String} type - identifier type
 * @returns {String} generated value
@@ -31,6 +33,8 @@ function generateRandomValue( type ) {
 		return chance.city();
 	case 'names':
 		return chance.name();
+	case 'organizations':
+		return faker.company.companyName();
 	case 'phone':
 		return chance.phone( { country: 'us' } );
 	case 'ssn':

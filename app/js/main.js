@@ -4,8 +4,10 @@ $(document).ready( function ready() {
 	var animator = new require( './js/logoAnimation.js' );
 
 	// MODULES //
-	var gui = require( 'nw.gui' ),
-		path = require( 'path' );
+	var fs = require( 'fs' ),
+		gui = require( 'nw.gui' ),
+		path = require( 'path' ),
+		md = require( 'markdown-it' )();
 
 
 	// DATABASE //
@@ -20,9 +22,18 @@ $(document).ready( function ready() {
 		showTable = require( './js/showTable.js' );
 
 
+	// CONSTANTS //
+
+	var ABOUT = md.render( fs
+		.readFileSync( './../README.md' )
+		.toString()
+	);
+
+
 	// ELEMENTS //
 
-	var $batchProcessDiv = $( '#batchProcessDiv' ),
+	var $aboutDiv = $( '#aboutDiv' ),
+		$batchProcessDiv = $( '#batchProcessDiv' ),
 		$dictDiv = $( '#dictDiv' ),
 		$dictTitle = $( '#dictTitle' ),
 		$fileProcess = $( '#fileProcess' ),
@@ -68,6 +79,7 @@ $(document).ready( function ready() {
 			$optionsDiv.hide();
 			$dictDiv.hide();
 			$batchProcessDiv.hide();
+			$aboutDiv.hide();
 			$fileProcessDiv.show();
 		},
 		'key': 'f'
@@ -79,6 +91,7 @@ $(document).ready( function ready() {
 			$optionsDiv.hide();
 			$fileProcessDiv.hide();
 			$splashScreen.hide();
+			$aboutDiv.hide();
 			$batchProcessDiv.show();
 		},
 		'key': 'b'
@@ -91,6 +104,7 @@ $(document).ready( function ready() {
 			$batchProcessDiv.hide();
 			$fileProcessDiv.hide();
 			$dictDiv.hide();
+			$aboutDiv.hide();
 			$optionsDiv.show();
 		}
 	}));
@@ -113,6 +127,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictTitle.text( 'Names' );
 			$dictDiv.show();
 			var $dictTable = $( '#dictTable' );
@@ -125,10 +140,24 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictTitle.text( 'Locations' );
 			$dictDiv.show();
 			var $dictTable = $( '#dictTable' );
 			showTable( 'locations', $dictTable );
+		}
+	}));
+	displayMenuItem.submenu.append( new gui.MenuItem({
+		'label': 'Organizations',
+		'click': function showDict() {
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$optionsDiv.hide();
+			$aboutDiv.hide();
+			$dictTitle.text( 'Organizations' );
+			$dictDiv.show();
+			var $dictTable = $( '#dictTable' );
+			showTable( 'organizations', $dictTable );
 		}
 	}));
 	displayMenuItem.submenu.append( new gui.MenuItem({
@@ -137,6 +166,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Dates' );
 			var $dictTable = $( '#dictTable' );
@@ -149,6 +179,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Emails' );
 			var $dictTable = $( '#dictTable' );
@@ -161,6 +192,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Fax Numbers' );
 			var $dictTable = $( '#dictTable' );
@@ -173,6 +205,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'IP Addresses' );
 			var $dictTable = $( '#dictTable' );
@@ -185,6 +218,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Phone Numbers' );
 			var $dictTable = $( '#dictTable' );
@@ -197,6 +231,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'URLs' );
 			var $dictTable = $( '#dictTable' );
@@ -209,6 +244,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Social Security Numbers (SSN)' );
 			var $dictTable = $( '#dictTable' );
@@ -221,6 +257,7 @@ $(document).ready( function ready() {
 			$splashScreen.hide();
 			$batchProcessDiv.hide();
 			$optionsDiv.hide();
+			$aboutDiv.hide();
 			$dictDiv.show();
 			$dictTitle.text( 'Vehicle Identifiers' );
 			var $dictTable = $( '#dictTable' );
@@ -259,7 +296,14 @@ $(document).ready( function ready() {
 	fourthMenuItem.submenu.append( new gui.MenuItem({
 		'label': 'About',
 		'click': function aboutClick() {
-			console.log("ABOUT ME");
+			$splashScreen.hide();
+			$batchProcessDiv.hide();
+			$fileProcessDiv.hide();
+			$dictDiv.hide();
+			$optionsDiv.hide();
+			$aboutDiv
+				.html( ABOUT )
+				.show();
 		},
 		'key': 'a'
 	}));
@@ -303,6 +347,7 @@ $(document).ready( function ready() {
 		var config = {
 			'names': $( '#check_names' ).is( ':checked' ),
 			'locations': $( '#check_locations' ).is( ':checked' ),
+			'organizations': $( '#check_organizations' ).is( ':checked' ),
 			'dates': $( '#check_dates' ).is( ':checked' ),
 			'phone': $( '#check_phone' ).is( ':checked' ),
 			'fax': $( '#check_fax' ).is( ':checked' ),
@@ -335,16 +380,17 @@ $(document).ready( function ready() {
 		$( '#runBatch_div' ).show();
 		$( '#runBatch_btn').click( function onClick() {
 			var config = {
-				'names': $('#check_names').is(':checked'),
-				'locations': $('#check_locations').is(':checked'),
-				'dates': $('#check_dates').is(':checked'),
-				'phone': $('#check_phone').is(':checked'),
-				'fax': $('#check_fax').is(':checked'),
+				'names': $( '#check_names' ).is( ':checked' ),
+				'locations': $( '#check_locations' ).is( ':checked' ),
+				'organizations': $( '#check_organizations' ).is( ':checked' ),
+				'dates': $( '#check_dates' ).is( ':checked' ),
+				'phone': $( '#check_phone' ).is( ':checked' ),
+				'fax': $( '#check_fax' ).is( ':checked' ),
 				'ip': $( '#check_ip' ).is( ':checked' ),
 				'urls': $( '#check_urls' ).is( ':checked' ),
-				'emails': $('#check_emails').is(':checked'),
-				'ssn': $('#check_ssn').is(':checked'),
-				'vehicles': $('#check_vehicles').is(':checked'),
+				'emails': $( '#check_emails' ).is( ':checked' ),
+				'ssn': $( '#check_ssn' ).is( ':checked' ),
+				'vehicles': $( '#check_vehicles' ).is( ':checked' ),
 				'fileExtensions': {
 					'doc': $( '#ext_doc' ).is( ':checked' ),
 					'docx': $( '#ext_docx' ).is( ':checked' ),

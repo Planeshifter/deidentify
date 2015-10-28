@@ -19,39 +19,7 @@ function getData( type, clbk ) {
 	var db,
 		i;
 
-	switch ( type ) {
-	case 'dates':
-		db = DB.DATES;
-	break;
-	case 'emails':
-		db = DB.EMAILS;
-	break;
-	case 'fax':
-		db = DB.FAX;
-	break;
-	case 'ip':
-		db = DB.IP;
-	break;
-	case 'locations':
-		db = DB.LOCATIONS;
-	break;
-	case 'names':
-		db = DB.NAMES;
-	break;
-	case 'phone':
-		db = DB.PHONE;
-	break;
-	case 'ssn':
-		db = DB.SSN;
-	break;
-	case 'urls':
-		db = DB.URLS;
-	break;
-	case 'vehicles':
-		db = DB.VEHICLES;
-	break;
-	}
-
+	db = DB[ type.toUpperCase() ];
 	db.find( {}, function onData( err, res ) {
 		for ( i = 0; i < res.length; i++ ) {
 			res[ i ] = [ res[ i ].key, res[ i ].value ];

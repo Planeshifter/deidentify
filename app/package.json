@@ -28,7 +28,7 @@
   "window": {
     "icon": "./img/app.jpg",
     "frame": true,
-    "toolbar": false,
+    "toolbar": true,
     "height": 768,
     "width": 1024,
     "resizable": false
@@ -42,7 +42,6 @@
     "jquery": "^2.1.4",
     "markdown": "^0.5.0",
     "nedb": "^1.1.4",
-    "node-ner": "0.0.3",
     "readdirp": "^2.0.0",
     "textract": "^1.1.1"
   }

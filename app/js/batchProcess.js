@@ -12,6 +12,7 @@ var runProcess = require( './process.js' ),
 	Progressbar = require( 'progressbar' ),
 	saveFile = require( './saveFile.js' );
 
+
 // PROGRESS BAR //
 
 var progBar = new Progressbar( 'runBatch_progressBar' );
@@ -55,7 +56,7 @@ function runBatchProcess( dir, config, callback ) {
 			progBar.increment( 100 );
 			progBar.setText( nDone + ' of ' + nFiles + ' files processed.' );
 		}
-		async.each( files, function iterator( item, clbk ) {
+		async.forEachLimit( files, 1, function iterator( item, clbk ) {
 			var filename = item.name,
 				newFilename,
 				newFilepath;
