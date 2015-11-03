@@ -19,7 +19,8 @@ $(document).ready( function ready() {
 	var runBatchProcess = require( './js/batchProcess.js'),
 		runProcess = require( './js/process.js' ),
 		saveFile = require( './js/saveFile.js' ),
-		showTable = require( './js/showTable.js' );
+		showTable = require( './js/showTable.js' ),
+		getReplacement = require( './js/getReplacement.js' );
 
 
 	// CONSTANTS //
@@ -57,8 +58,14 @@ $(document).ready( function ready() {
 		$( '#startBatch input[type=\'file\']' ).trigger( 'click' );
 	});
 
-	$( '#startBatch input[type=\'file\']' ).change( function() {
+	$( '#startBatch input[type=\'file\']' ).change( function onChange() {
 		$( '#batchVal' ).text( this.value.replace(/C:\\fakepath\\/i, '') );
+	});
+
+	// STRATEGY RADIO BUTTONS //
+
+	$( 'input[name="replacement"]' ).change( function onChange() {
+		getReplacement.strategy = $( 'input[name="replacement"]:checked' ).val();
 	});
 
 	// ADD MENUS //

@@ -139,8 +139,16 @@
 				<h3 class="panel-title">Classifier options:</h3>
 			</div>
 			<div class="panel-body">
-				<input type="radio" name="capitalized" value="caseless">Ignore case information (use when text is inconsistently / not capitalzed)<br>
-				<input type="radio" name="capitalized" value="cased">Use case information
+								<input type="radio" name="capitalized" value="cased"checked>Use case information<br>
+				<input type="radio" name="capitalized" value="caseless">Ignore case information (use when text is inconsistently / not capitalzed)
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title">Replacement options:</h3>
+			</div>
+			<div class="panel-body">
+				<input type="radio" name="replacement" value="generated" checked>Replace by automatically generated replacements.<br>
+				<input type="radio" name="replacement" value="types">Replace by word type identifier<br>
+				<input type="radio" name="replacement" value="redacted">Replace by redacted string
 			</div>
 		</div>
 	</div>

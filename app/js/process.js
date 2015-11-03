@@ -7,14 +7,13 @@ var async = require( 'async' ),
 	NER = require( 'ner' );
 
 var ner = new NER({
-	install_path:   './stanford-ner-2014-10-26'
+	install_path: './stanford-ner-2014-10-26'
 });
 
 
 // FUNCTIONS //
 
-var generateRandomValue = require( './generateRandomValue.js' ),
-	getReplacement = require( './getReplacement.js' ),
+var getReplacement = require( './getReplacement.js' ),
 	replace = require( './replace.js' );
 
 

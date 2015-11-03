@@ -6,6 +6,11 @@ var DB = require( './DB.js' ),
 	generateRandomValue = require( './generateRandomValue.js' );
 
 
+// STRATEGY //
+
+var STRATEGY = 'generate';
+
+
 // GET REPLACEMENT //
 
 /**
@@ -22,24 +27,52 @@ var DB = require( './DB.js' ),
 function getReplacement( text, type, clbk ) {
 	var db,
 		newVal;
-
 	db = DB[ type.toUpperCase() ];
 	db.findOne( { 'key': text }, function( err, doc ) {
 		if ( doc ) {
-			clbk( null, doc.value );
+			switch ( STRATEGY ) {
+			case 'types':
+				clbk( null, '<' + type + '>' );
+			break;
+			case 'redacted':
+				clbk( null, text.replace( /./g, '*' ) );
+			break;
+			default:
+				clbk( null, doc.value );
+			break;
+			}
 		} else {
 			newVal = generateRandomValue( type );
 			db.insert({
 				'key': text,
 				'value': newVal
 			}, function() {
-				clbk( null, newVal );
+				switch ( STRATEGY ) {
+				case 'typed':
+					clbk( null, '<' + type + '>' );
+				break;
+				case 'redacted':
+					clbk( null, text.replace( /./g, '*' ) );
+				break;
+				default:
+					clbk( null, newVal );
+				break;
+				}
 			});
 		}
 	});
-} // end FUNCTION getValue()
+} // end FUNCTION getReplacement()
 
 
 // EXPORTS //
 
 module.exports = getReplacement;
+
+Object.defineProperty( module.exports, 'strategy', {
+	set: function( newVal ) {
+		STRATEGY = newVal;
+	},
+	get: function() {
+		return STRATEGY;
+	}
+});
