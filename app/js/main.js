@@ -16,7 +16,8 @@ $(document).ready( function ready() {
 
 	// FUNCTIONS //
 
-	var runBatchProcess = require( './js/batchProcess.js'),
+	var convertFile = require( './js/convertFile.js' ),
+		runBatchProcess = require( './js/batchProcess.js'),
 		runProcess = require( './js/process.js' ),
 		saveFile = require( './js/saveFile.js' ),
 		showTable = require( './js/showTable.js' ),
@@ -43,7 +44,7 @@ $(document).ready( function ready() {
 		$process_btn = $( '#process_btn' ),
 		$splashScreen = $( '#splashScreen' );
 
-	$process_btn.click( processFile );
+	$process_btn.click( beginProcess );
 
 	$fileProcess.click( function onFileProcessClick() {
 		$splashScreen.fadeOut();
@@ -350,7 +351,13 @@ $(document).ready( function ready() {
 		return false;
 	};
 
-	function processFile(){
+	function beginProcess() {
+		convertFile( file, function onComplete( err, res ) {
+			processFile( res );
+		});
+	}
+
+	function processFile( fileName ) {
 		var config = {
 			'names': $( '#check_names' ).is( ':checked' ),
 			'locations': $( '#check_locations' ).is( ':checked' ),
@@ -362,9 +369,10 @@ $(document).ready( function ready() {
 			'urls': $( '#check_urls' ).is( ':checked' ),
 			'emails': $( '#check_emails' ).is( ':checked' ),
 			'ssn': $( '#check_ssn' ).is( ':checked' ),
-			'vehicles': $( '#check_vehicles' ).is( ':checked' )
+			'vehicles': $( '#check_vehicles' ).is( ':checked' ),
+			'capitalized': $( 'input[name="capitalized"]:checked' ).val()
 		};
-		runProcess( file, config, function( err, res ) {
+		runProcess( fileName, config, function onCompletion( err, res ) {
 			$( '#original_panel' ).text( res.original );
 			$( '#deidentified_panel' ).text( res.processed );
 			$( '#save_holder' ).html( '<input id="save_btn" type="file" class="form-control" nwsaveas=' + file + '/>');
@@ -403,7 +411,8 @@ $(document).ready( function ready() {
 					'docx': $( '#ext_docx' ).is( ':checked' ),
 					'pdf': $( '#ext_pdf' ).is( ':checked' ),
 					'txt': $( '#ext_txt' ).is( ':checked' ),
-				}
+				},
+				'capitalized': $( 'input[name="capitalized"]:checked' ).val()
 			};
 			$( '#runBatch_progress').show();
 			runBatchProcess( dir, config );

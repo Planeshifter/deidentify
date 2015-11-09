@@ -3,12 +3,15 @@
 // MODULES //
 
 var async = require( 'async' ),
+	mime = require( 'mime' ),
+	path = require( 'path' ),
 	readdirp = require( 'readdirp' );
 
 
 // FUNCTIONS //
 
-var runProcess = require( './process.js' ),
+var convertFile = require( './convertFile.js' ),
+	runProcess = require( './process.js' ),
 	Progressbar = require( 'progressbar' ),
 	saveFile = require( './saveFile.js' );
 
@@ -42,6 +45,7 @@ function runBatchProcess( dir, config, callback ) {
 	}
 	if ( config.fileExtensions.txt === true ) {
 		fileFilter.push( '*.txt' );
+		fileFilter.push( '*.TXT' );
 	}
 	readdirp({
 		'root': dir,
@@ -58,10 +62,29 @@ function runBatchProcess( dir, config, callback ) {
 		}
 		async.forEachLimit( files, 1, function iterator( item, clbk ) {
 			var filename = item.name,
+				txtName = item.name,
 				newFilename,
 				newFilepath;
-			runProcess( item.fullPath, config, function processDone( err, res ) {
-				newFilename = '$' + item.name;
+
+			var type = mime.lookup( filename );
+			if ( type !== 'text/plain' ) {
+				txtName = path.basename( item.name, path.extname( item.name ) ) + '.txt';
+		 	}
+			convertFile( item.fullPath, function onComplete( err, res ) {
+				runProcess( res, config, processDone );
+			});
+
+			/**
+			* FUNCTION: processDone( err, res )
+			*	Callback invoked when file is converted to *.txt and processed. It saves
+			*	the deidentified file with a $ prefix.
+			*
+			* @param {Object} err - error object
+			* @param {Object} res - object containing the original and processed text
+			* @returns {Void}
+			*/
+			function processDone( err, res ) {
+				newFilename = '$' + txtName;
 				newFilepath = item.fullPath.replace( filename, newFilename );
 				saveFile( newFilepath, res.processed, function() {
 					nDone++;
@@ -69,7 +92,8 @@ function runBatchProcess( dir, config, callback ) {
 					progBar.setText( nDone + ' of ' + nFiles + ' files processed.' );
 					clbk( null );
 				});
-			});
+			} // end FUNCTION processDone()
+
 		}, callback );
 	});
 } // end FUNCTION runBatchProcess()

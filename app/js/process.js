@@ -28,6 +28,14 @@ var getReplacement = require( './getReplacement.js' ),
 * @param {Function} clbk - callback function receiving the replaced text
 */
 function process( path, config, clbk ) {
+
+	// [0] Choose Classifier depending on whether text is capitalized or not.
+	if ( config.capitalized === 'cased' ) {
+		ner.capitalized = true;
+	} else {
+		ner.capitalized = false;
+	}
+
 	textract.fromFileWithPath( path, function( err, text ) {
 		var actions = [],
 			original = text;
