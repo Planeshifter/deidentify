@@ -1,6 +1,6 @@
 {
   "name": "deidentify",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "De-identification of protected health information in unstructured text.",
   "main": "app/index.html",
   "scripts": {
