@@ -54,7 +54,7 @@ function runBatchProcess( dir, config, callback ) {
 		var files = res.files,
 			nFiles = files.length,
 			nDone = 0,
-			incrVal = Math.ceil( 100 / nFiles );
+			incrVal = 100 / nFiles;
 
 		if ( nFiles === 0 ) {
 			progBar.increment( 100 );
@@ -90,6 +90,9 @@ function runBatchProcess( dir, config, callback ) {
 					nDone++;
 					progBar.increment( incrVal );
 					progBar.setText( nDone + ' of ' + nFiles + ' files processed.' );
+					if ( nDone === nFiles ) {
+						progBar.setValue( 100 );
+					}
 					clbk( null );
 				});
 			} // end FUNCTION processDone()

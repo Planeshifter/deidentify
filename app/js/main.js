@@ -27,7 +27,7 @@ $(document).ready( function ready() {
 	// CONSTANTS //
 
 	var ABOUT = md.render( fs
-		.readFileSync( './../README.md' )
+		.readFileSync( './README.md' )
 		.toString()
 	);
 
