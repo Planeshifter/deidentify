@@ -7,17 +7,16 @@ var asyncReplace = require( 'async-replace' );
 
 // FUNCTIONS //
 
-var getReplacement = require( './getReplacement.js' );
+var getReplacement = require( './get_replacement.js' );
 
 
 // REPLACE //
 
 /**
-* FUNCTION replace( text, type, clbk )
-*	Replaces or remvoes all occurrences of words of the specified type.
+* Replaces or removes all occurrences of words of the specified type.
 *
-* @param {String} text - input string
-* @param {String} type - identifier type to replace
+* @param {string} text - input string
+* @param {string} type - identifier type to replace
 * @param {Function} clbk - callback function
 */
 function replace( text, type, clbk ) {
@@ -55,16 +54,19 @@ function replace( text, type, clbk ) {
 	function replacer( match, p1 ) {
 		var done = arguments[ arguments.length - 1 ];
 		getReplacement( match, type, function( err, res ) {
-			if ( type === 'names' && p1 ) {
-				res = p1 + ' ' + res;
+			if ( err ) {
+				done( err );
+			} else {
+				if ( type === 'names' && p1 ) {
+					res = p1 + ' ' + res;
+				}
+				done( null, res );
 			}
-			done( null, res );
 		});
 	}
 	asyncReplace( text, regex, replacer, function( err, result ) {
 		clbk( err, result );
 	});
-
 } // end FUNCTION replace()
 
 

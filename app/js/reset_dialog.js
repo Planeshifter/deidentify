@@ -3,8 +3,8 @@ $(document).ready( function ready() {
 
 	// MODULES //
 
-	var db = require( './js/DB.js' ),
-		gui = require('nw.gui');
+	var db = require( './js/DB.js' );
+	var gui = require('nw.gui');
 
 
 	// VARIABLES //
@@ -14,8 +14,8 @@ $(document).ready( function ready() {
 
 	// ELEMENTS //
 
-	var $confirmReset = $( '#confirmReset' ),
-		$cancelReset = $( '#cancelReset' );
+	var $confirmReset = $( '#confirmReset' );
+	var $cancelReset = $( '#cancelReset' );
 
 	$confirmReset.click( function resetDB() {
 		db.reset();

@@ -2,19 +2,18 @@
 
 // MODULES //
 
-var fs = require( 'fs' ),
-	mime = require( 'mime' ),
-	path = require( 'path' ),
-	textract = require( 'textract' );
+var fs = require( 'fs' );
+var mime = require( 'mime' );
+var path = require( 'path' );
+var textract = require( 'textract' );
 
 
 // CONVERT FILE //
 
 /**
-* FUNCTION: convertFile( file, clbk )
-*	Converts a document to a *.txt file.
+* Converts a document to a *.txt file.
 *
-* @param {String} file - file path
+* @param {string} file - file path
 * @param {Function} clbk - callback function
 * @returns {Void}
 */

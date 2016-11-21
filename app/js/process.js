@@ -2,9 +2,9 @@
 
 // MODULES //
 
-var async = require( 'async' ),
-	textract = require( 'textract' ),
-	NER = require( 'ner' );
+var textract = require( 'textract' );
+var async = require( 'async' );
+var NER = require( 'ner' );
 
 var ner = new NER({
 	install_path: './stanford-ner-2014-10-26'
@@ -13,17 +13,16 @@ var ner = new NER({
 
 // FUNCTIONS //
 
-var getReplacement = require( './getReplacement.js' ),
-	replace = require( './replace.js' );
+var getReplacement = require( './get_replacement.js' );
+var replace = require( './replace.js' );
 
 
 // PROCESS FILE //
 
 /**
-* FUNCTION process( path, config, clbk )
-*    Processes a file and performs de-identification tasks.
+* Processes a file and performs de-identification tasks.
 *
-* @param {String} path - full path of the file
+* @param {string} path - full path of the file
 * @param {Object} config - config object indicating which actions to perform
 * @param {Function} clbk - callback function receiving the replaced text
 */

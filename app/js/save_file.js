@@ -8,11 +8,10 @@ var fs = require( 'fs' );
 // SAVE FILE //
 
 /**
-* FUNCTION saveFile( file, text, clbk )
-*    Saves the text content to the supplied file path.
+* Saves the text content to the supplied file path.
 *
-* @param {String} file - full path of output file
-* @param {String} text - text to Saves
+* @param {string} file - full path of output file
+* @param {string} text - text to Saves
 * @param {Function} clbk - callback function
 */
 function saveFile( path, text, clbk ) {

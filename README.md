@@ -1,5 +1,9 @@
 # deidentify
 
+[![npm version](https://badge.fury.io/js/deidentify.svg)](https://badge.fury.io/js/deidentify)
+[![dependencies Status](https://david-dm.org/planeshifter/deidentify/status.svg)](https://david-dm.org/planeshifter/deidentify)
+[![devDependencies Status](https://david-dm.org/planeshifter/deidentify/dev-status.svg)](https://david-dm.org/planeshifter/deidentify?type=dev)
+
 #### De-Identification of Free-Text Medical Record Data
 
 | File Processing | Batch Processing |

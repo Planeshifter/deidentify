@@ -2,18 +2,18 @@
 
 // MODULES //
 
-var async = require( 'async' ),
-	mime = require( 'mime' ),
-	path = require( 'path' ),
-	readdirp = require( 'readdirp' );
+var async = require( 'async' );
+var mime = require( 'mime' );
+var path = require( 'path' );
+var readdirp = require( 'readdirp' );
 
 
 // FUNCTIONS //
 
-var convertFile = require( './convertFile.js' ),
-	runProcess = require( './process.js' ),
-	Progressbar = require( 'progressbar' ),
-	saveFile = require( './saveFile.js' );
+var convertFile = require( './convert_file.js' );
+var runProcess = require( './process.js' );
+var Progressbar = require( 'progressbar' );
+var saveFile = require( './save_file.js' );
 
 
 // PROGRESS BAR //
@@ -24,10 +24,9 @@ var progBar = new Progressbar( 'runBatch_progressBar' );
 // RUN BATCH PROCESS //
 
 /**
-* FUNCTION runBatchProcess( dir, config, callback )
-*	De-identifies multiple files and saves the scrubbed files to disk.
+* De-identifies multiple files and saves the scrubbed files to disk.
 *
-* @param {String} dir - name of directory whose files should be processed
+* @param {string} dir - name of directory whose files should be processed
 * @param {Object} config - config object indicating which actions to perform
 * @param {Function} clbk - callback function invoked after all files have been processed
 */
@@ -51,22 +50,23 @@ function runBatchProcess( dir, config, callback ) {
 		'root': dir,
 		'fileFilter': fileFilter
 	}, function onReaddirp( err, res ) {
-		var files = res.files,
-			nFiles = files.length,
-			nDone = 0,
-			incrVal = 100 / nFiles;
+		var files = res.files;
+		var nFiles = files.length;
+		var nDone = 0;
+		var incrVal = 100 / nFiles;
 
 		if ( nFiles === 0 ) {
 			progBar.increment( 100 );
 			progBar.setText( nDone + ' of ' + nFiles + ' files processed.' );
 		}
 		async.forEachLimit( files, 1, function iterator( item, clbk ) {
-			var filename = item.name,
-				txtName = item.name,
-				newFilename,
-				newFilepath;
+			var filename = item.name;
+			var txtName = item.name;
+			var newFilename;
+			var newFilepath;
 
 			var type = mime.lookup( filename );
+
 			if ( type !== 'text/plain' ) {
 				txtName = path.basename( item.name, path.extname( item.name ) ) + '.txt';
 		 	}
@@ -75,9 +75,7 @@ function runBatchProcess( dir, config, callback ) {
 			});
 
 			/**
-			* FUNCTION: processDone( err, res )
-			*	Callback invoked when file is converted to *.txt and processed. It saves
-			*	the deidentified file with a $ prefix.
+			* Callback invoked when file is converted to *.txt and processed. It saves the deidentified file with a $ prefix.
 			*
 			* @param {Object} err - error object
 			* @param {Object} res - object containing the original and processed text

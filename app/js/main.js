@@ -1,27 +1,27 @@
 $(document).ready( function ready() {
 	'use strict';
 
-	var animator = new require( './js/logoAnimation.js' );
+	var animator = new require( './js/logo_animation.js' );
 
 	// MODULES //
-	var fs = require( 'fs' ),
-		gui = require( 'nw.gui' ),
-		path = require( 'path' ),
-		md = require( 'markdown-it' )();
+	var path = require( 'path' );
+	var gui = require( 'nw.gui' );
+	var fs = require( 'fs' );
+	var md = require( 'markdown-it' )();
 
 
 	// DATABASE //
-	var db = require( './js/DB.js' );
+	var db = require( './js/db.js' );
 
 
 	// FUNCTIONS //
 
-	var convertFile = require( './js/convertFile.js' ),
-		runBatchProcess = require( './js/batchProcess.js'),
-		runProcess = require( './js/process.js' ),
-		saveFile = require( './js/saveFile.js' ),
-		showTable = require( './js/showTable.js' ),
-		getReplacement = require( './js/getReplacement.js' );
+	var convertFile = require( './js/convert_file.js' );
+	var runBatchProcess = require( './js/batch_process.js');
+	var runProcess = require( './js/process.js' );
+	var saveFile = require( './js/save_file.js' );
+	var showTable = require( './js/show_table.js' );
+	var getReplacement = require( './js/get_replacement.js' );
 
 
 	// CONSTANTS //
