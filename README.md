@@ -50,6 +50,10 @@ Other used libraries include
 - [bootstrap](http://getbootstrap.com/)
 - [jQuery](http://jquery.com/)
 
+## Prerequisites 
+
+This software uses the Stanford NER tool, which requires [Java 1.8](https://java.com/en/) or later.
+
 ## Install
 
 Installers for Windows, MacOS and Linux can be downloaded from the [releases page](https://github.com/Planeshifter/deidentify/releases).
@@ -59,7 +63,7 @@ Installers for Windows, MacOS and Linux can be downloaded from the [releases pag
 Clone the repository via the following command:
 
 ``` bash 
-https://github.com/Planeshifter/deidentify.git
+git clone https://github.com/Planeshifter/deidentify.git
 ```
 
 Change into the newly created directory, install npm dependencies and run the `init` script:
