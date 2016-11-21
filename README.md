@@ -54,6 +54,21 @@ Other used libraries include
 
 Installers for Windows, MacOS and Linux can be downloaded from the [releases page](https://github.com/Planeshifter/deidentify/releases).
 
+## Build from source
+
+Clone the repository via the following command:
+
+``` bash 
+https://github.com/Planeshifter/deidentify.git
+```
+
+Change into the newly created directory, install npm dependencies and run the `init` script:
+
+``` bash
+npm install
+npm run init
+```
+
 ---
 ## License
 

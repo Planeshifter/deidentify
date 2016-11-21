@@ -5,6 +5,7 @@
   "main": "app/index.html",
   "scripts": {
     "build": "node build.js",
+    "init": "git submodule update --init --recursive && node ./script/download_ner.js",
     "start": "./node_modules/.bin/nw app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
