@@ -286,10 +286,10 @@ $(document).ready( function ready() {
 			});
 			win.on( 'closed', function() {
 				this.hide();
-				if (win !== null) {
-					win.close(true);
+				if ( win !== null ) {
+					win.close( true );
 				}
-				this.close(true);
+				this.close( true );
 			});
 		},
 		'key': 'r'

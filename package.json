@@ -38,7 +38,7 @@
   "homepage": "https://github.com/Planeshifter/deidentify#readme",
   "devDependencies": {
     "download": "^5.0.2",
-    "nw": "^0.12.3"
+    "nw": "0.12.3"
   },
   "dependencies": {
     "@planeshifter/liquid-screen": "0.0.1",
