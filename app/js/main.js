@@ -59,8 +59,15 @@ $(document).ready( function ready() {
 		$( '#startBatch input[type=\'file\']' ).trigger( 'click' );
 	});
 
+	$( '#batchOutputButton' ).click( function onBatchClick() {
+		$( '#outputBatch input[type=\'file\']' ).trigger( 'click' );
+	});
+
 	$( '#startBatch input[type=\'file\']' ).change( function onChange() {
-		$( '#batchVal' ).text( this.value.replace(/C:\\fakepath\\/i, '') );
+		$( '#batchInputVal' ).text( this.value.replace(/C:\\fakepath\\/i, '') );
+	});
+	$( '#outputBatch input[type=\'file\']' ).change( function onChange() {
+		$( '#batchOutputVal' ).text( this.value.replace(/C:\\fakepath\\/i, '') );
 	});
 
 	// STRATEGY RADIO BUTTONS //
@@ -390,33 +397,39 @@ $(document).ready( function ready() {
 		});
 	}
 
-	$( '#batchInput').change( function onBatchChange() {
-		var dir = $( '#batchInput' ).val();
-		$( '#runBatch_div' ).show();
-		$( '#runBatch_btn').click( function onClick() {
-			var config = {
-				'names': $( '#check_names' ).is( ':checked' ),
-				'locations': $( '#check_locations' ).is( ':checked' ),
-				'organizations': $( '#check_organizations' ).is( ':checked' ),
-				'dates': $( '#check_dates' ).is( ':checked' ),
-				'phone': $( '#check_phone' ).is( ':checked' ),
-				'fax': $( '#check_fax' ).is( ':checked' ),
-				'ip': $( '#check_ip' ).is( ':checked' ),
-				'urls': $( '#check_urls' ).is( ':checked' ),
-				'emails': $( '#check_emails' ).is( ':checked' ),
-				'ssn': $( '#check_ssn' ).is( ':checked' ),
-				'vehicles': $( '#check_vehicles' ).is( ':checked' ),
-				'fileExtensions': {
-					'doc': $( '#ext_doc' ).is( ':checked' ),
-					'docx': $( '#ext_docx' ).is( ':checked' ),
-					'pdf': $( '#ext_pdf' ).is( ':checked' ),
-					'txt': $( '#ext_txt' ).is( ':checked' ),
-				},
-				'capitalized': $( 'input[name="capitalized"]:checked' ).val()
-			};
-			$( '#runBatch_progress').show();
-			runBatchProcess( dir, config );
-		});
-	});
+	$( '#batchOutput' ).change( onBatchChange );
+	$( '#batchInput').change( onBatchChange );
 
+	function onBatchChange() {
+		var inputDir = $( '#batchInput' ).val();
+		var outputDir = $( '#batchOutput' ).val();
+		if ( inputDir && outputDir ) {
+			$( '#runBatch_div' ).show();
+			$( '#runBatch_btn').click( function onClick() {
+				var config = {
+					'names': $( '#check_names' ).is( ':checked' ),
+					'locations': $( '#check_locations' ).is( ':checked' ),
+					'organizations': $( '#check_organizations' ).is( ':checked' ),
+					'dates': $( '#check_dates' ).is( ':checked' ),
+					'phone': $( '#check_phone' ).is( ':checked' ),
+					'fax': $( '#check_fax' ).is( ':checked' ),
+					'ip': $( '#check_ip' ).is( ':checked' ),
+					'urls': $( '#check_urls' ).is( ':checked' ),
+					'emails': $( '#check_emails' ).is( ':checked' ),
+					'ssn': $( '#check_ssn' ).is( ':checked' ),
+					'vehicles': $( '#check_vehicles' ).is( ':checked' ),
+					'fileExtensions': {
+						'doc': $( '#ext_doc' ).is( ':checked' ),
+						'docx': $( '#ext_docx' ).is( ':checked' ),
+						'pdf': $( '#ext_pdf' ).is( ':checked' ),
+						'txt': $( '#ext_txt' ).is( ':checked' ),
+					},
+					'capitalized': $( 'input[name="capitalized"]:checked' ).val(),
+					'outputDir': outputDir
+				};
+				$( '#runBatch_progress').show();
+				runBatchProcess( inputDir, config );
+			});
+		}
+	}
 });

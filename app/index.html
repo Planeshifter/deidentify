@@ -58,10 +58,10 @@
 		</div>
 	</div>
 	<div id="batchProcessDiv">
-		<div id="startBatch">
+		<div id="startBatch" class="batchButton">
 			<input id="batchInput" type="file" nwdirectory />
-			<span id="batchFileButton">Select folder</span>
-			<span id="batchVal"></span>
+			<span id="batchFileButton">Select input folder</span>
+			<span id="batchInputVal" class="batchValue"></span>
 		</div>
 		<div id="extPanel" class="panel panel-default">
 			<div class="panel-heading">
@@ -81,6 +81,11 @@
 					<label><input id="ext_pdf" type="checkbox" value="">pdf</label>
 				</div>
 			</div>
+		</div>
+		<div id="outputBatch" class="batchButton">
+			<input id="batchOutput" type="file" nwdirectory />
+			<span id="batchOutputButton">Select output directory</span>
+			<span id="batchOutputVal" class="batchValue"></span>
 		</div>
 		<div id="runBatch_div" class="text-center">
 			<button id="runBatch_btn" type="button" class="btn btn-primary center-block">Process Documents</button>

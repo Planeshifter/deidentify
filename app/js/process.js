@@ -92,82 +92,89 @@ function process( path, config, clbk ) {
 			});
 		}
 
+
 		async.waterfall( actions, function( err, resultText ) {
 			var names = [],
 				locations = [],
 				organizations = [];
 
-			ner.fromFile( path, function( entities ) {
-				var i;
-				if ( config.names === true ) {
-					if ( entities.PERSON ) {
-						for ( i = 0; i < entities.PERSON.length; i++ ) {
-							names.push( entities.PERSON[ i ] );
-						}
-					}
-				}
-				if ( config.locations === true ) {
-					if ( entities.LOCATION ) {
-						for ( i = 0; i < entities.LOCATION.length; i++ ) {
-							locations.push( entities.LOCATION[ i ] );
-						}
-					}
-				}
-				if ( config.organizations === true ) {
-					if ( entities.ORGANIZATION ) {
-						for ( i = 0; i < entities.ORGANIZATION.length; i++ ) {
-							organizations.push( entities.ORGANIZATION[ i ] );
-						}
-					}
-				}
-
-				async.parallel([
-					function( callback ) {
-						async.map( names, function getName( item, clbk ) {
-							getReplacement( item, 'names', function( err, res ) {
-								clbk( null, res );
-							});
-						}, callback );
-					},
-					function( callback ) {
-						async.map( locations, function getLocations( item, clbk ) {
-							getReplacement( item, 'locations', function( err, res ) {
-								clbk( null, res );
-							});
-						}, callback );
-					},
-					function( callback ) {
-						async.map( organizations, function getOrganizations( item, clbk ) {
-							getReplacement( item, 'organizations', function( err, res ) {
-								clbk( null, res );
-							});
-						}, callback );
-					}
-				], function( err, results ) {
+			if ( config.names || config.locations || config.organizations ) {
+				ner.fromFile( path, function( entities ) {
+					var i;
 					if ( config.names === true ) {
-						var newNames = results[ 0 ];
-						for ( i = 0; i < newNames.length; i++ ) {
-							resultText = resultText.replace( names[ i ], newNames[ i ] );
+						if ( entities.PERSON ) {
+							for ( i = 0; i < entities.PERSON.length; i++ ) {
+								names.push( entities.PERSON[ i ] );
+							}
 						}
 					}
 					if ( config.locations === true ) {
-						var newLocations = results[ 1 ];
-						for ( i = 0; i < newLocations.length; i++ ) {
-							resultText = resultText.replace( locations[ i ], newLocations[ i ] );
+						if ( entities.LOCATION ) {
+							for ( i = 0; i < entities.LOCATION.length; i++ ) {
+								locations.push( entities.LOCATION[ i ] );
+							}
 						}
 					}
 					if ( config.organizations === true ) {
-						var newOrganizations = results[ 2 ];
-						for ( i = 0; i < newOrganizations.length; i++ ) {
-							resultText = resultText.replace( organizations[ i ], newOrganizations[ i ] );
+						if ( entities.ORGANIZATION ) {
+							for ( i = 0; i < entities.ORGANIZATION.length; i++ ) {
+								organizations.push( entities.ORGANIZATION[ i ] );
+							}
 						}
 					}
-					clbk( err, {
-						'processed': resultText,
-						'original': original
+					async.parallel([
+						function( callback ) {
+							async.map( names, function getName( item, clbk ) {
+								getReplacement( item, 'names', function( err, res ) {
+									clbk( null, res );
+								});
+							}, callback );
+						},
+						function( callback ) {
+							async.map( locations, function getLocations( item, clbk ) {
+								getReplacement( item, 'locations', function( err, res ) {
+									clbk( null, res );
+								});
+							}, callback );
+						},
+						function( callback ) {
+							async.map( organizations, function getOrganizations( item, clbk ) {
+								getReplacement( item, 'organizations', function( err, res ) {
+									clbk( null, res );
+								});
+							}, callback );
+						}
+					], function( err, results ) {
+						if ( config.names === true ) {
+							var newNames = results[ 0 ];
+							for ( i = 0; i < newNames.length; i++ ) {
+								resultText = resultText.replace( names[ i ], newNames[ i ] );
+							}
+						}
+						if ( config.locations === true ) {
+							var newLocations = results[ 1 ];
+							for ( i = 0; i < newLocations.length; i++ ) {
+								resultText = resultText.replace( locations[ i ], newLocations[ i ] );
+							}
+						}
+						if ( config.organizations === true ) {
+							var newOrganizations = results[ 2 ];
+							for ( i = 0; i < newOrganizations.length; i++ ) {
+								resultText = resultText.replace( organizations[ i ], newOrganizations[ i ] );
+							}
+						}
+						clbk( err, {
+							'processed': resultText,
+							'original': original
+						});
 					});
 				});
-			});
+			} else {
+				clbk( err, {
+					'processed': resultText,
+					'original': original
+				});
+			}
 		});
 	});
 } // end FUNCTION process()

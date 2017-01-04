@@ -83,7 +83,7 @@ function runBatchProcess( dir, config, callback ) {
 			*/
 			function processDone( err, res ) {
 				newFilename = '$' + txtName;
-				newFilepath = item.fullPath.replace( filename, newFilename );
+				newFilepath = path.join( config.outputDir, newFilename );
 				saveFile( newFilepath, res.processed, function() {
 					nDone++;
 					progBar.increment( incrVal );
