@@ -1,0 +1,61 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "node": true
+  },
+  "rules": {
+    "array-bracket-spacing": [ "error", "always" ],
+    "consistent-return": 0,
+    "comma-dangle": 0,
+    "computed-property-spacing": [ "error", "always" ],
+    "default-case": 0,
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "one-var": [ "error", "never" ],
+    "import/no-unresolved": [ 2, {
+      "ignore": [ "electron" ],
+      "commonjs": true
+    }],
+    "react/jsx-no-bind": 0,
+    "react/prefer-stateless-function": 0,
+    "semi": [ 2, "always" ],
+    "semi-spacing": [ 2, {
+      "before": false,
+      "after": true
+    }],
+    "keyword-spacing": [ "error", {
+      "before": true,
+      "after": true
+    }],
+    "indent": [ 2, "tab" ],
+    "prefer-template": 0,
+    "space-in-parens": [ 2, "always", {
+      "exceptions": [ "{}", "[]", "empty" ]
+    }],
+    "react/jsx-indent-props": [ 2, "tab" ],
+    "react/jsx-indent": [ 2, "tab" ],
+    "wrap-regex": 0
+  },
+  "plugins": [
+    "import",
+    "react"
+  ],
+  "settings": {
+    "import/external-module-folders": [ "node_modules" ],
+    "import/core-modules": [ "electron", "@stdlib" ],
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.base.js"
+      },
+      "node": {
+        "moduleDirectory": [
+          "app/node_modules",
+          "node_modules",
+          "node_modules/@stdlib/stdlib/lib/node_modules"
+        ]
+      }
+    }
+  }
+}
