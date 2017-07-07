@@ -46,7 +46,7 @@
     "async-replace": "^1.0.0",
     "bootstrap": "^3.3.5",
     "chance": "^1.0.4",
-    "faker": "^3.0.1",
+    "faker": "^4.0.1",
     "jquery": "^3.1.1",
     "markdown": "^0.5.0",
     "markdown-it": "^8.1.0",
