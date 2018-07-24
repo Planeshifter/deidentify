@@ -73,6 +73,14 @@ npm install
 npm run init
 ```
 
+## Run
+
+Start the program by executing the following command from the project directory:
+
+```
+npm start
+```
+
 ---
 ## License
 
