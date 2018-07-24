@@ -326,7 +326,6 @@ $(document).ready( function ready() {
 	// Set the menu
 	var win = gui.Window.get();
 	win.menu = windowMenu;
-	win.enterKioskMode();
 
 	// Prevent default behavior from changing page on dropped file
 	window.ondragover = function(e) {

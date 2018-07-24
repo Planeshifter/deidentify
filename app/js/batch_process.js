@@ -6,6 +6,7 @@ var async = require( 'async' );
 var mime = require( 'mime' );
 var path = require( 'path' );
 var readdirp = require( 'readdirp' );
+var $ = require( 'jquery' );
 
 
 // FUNCTIONS //
@@ -21,7 +22,7 @@ var saveFile = require( './save_file.js' );
 var progBar = new Progressbar( 'runBatch_progressBar' );
 
 
-// RUN BATCH PROCESS //
+// MAIN //
 
 /**
 * De-identifies multiple files and saves the scrubbed files to disk.
@@ -65,7 +66,7 @@ function runBatchProcess( dir, config, callback ) {
 			var newFilename;
 			var newFilepath;
 
-			var type = mime.lookup( filename );
+			var type = mime.getType( filename );
 
 			if ( type !== 'text/plain' ) {
 				txtName = path.basename( item.name, path.extname( item.name ) ) + '.txt';
@@ -90,6 +91,9 @@ function runBatchProcess( dir, config, callback ) {
 					progBar.setText( nDone + ' of ' + nFiles + ' files processed.' );
 					if ( nDone === nFiles ) {
 						progBar.setValue( 100 );
+						setTimeout( function onTimeout() {
+							$( '#runBatch_progressBar' ).remove();
+						}, 5000 );
 					}
 					clbk( null );
 				});
