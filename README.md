@@ -63,7 +63,7 @@ Installers for Windows, MacOS and Linux can be downloaded from the [releases pag
 Clone the repository via the following command:
 
 ``` bash 
-git clone https://github.com/Planeshifter/deidentify.git
+git clone --recursive https://github.com/Planeshifter/deidentify.git
 ```
 
 Change into the newly created directory, install npm dependencies and run the `init` script:
