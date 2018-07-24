@@ -63,10 +63,10 @@ function buildExecutables() {
 */
 function createInstallers() {
 	console.log( '3. Create installers' );
-	var cmd = path.join( __dirname, 'script/nwjs-shell-builder/pack.sh' );
+	var cmd = path.join( __dirname, 'script/builder/pack.sh' );
 	var args = [ '--all', '--config=' + path.join( __dirname, 'config.json' ) ];
 	var installers = spawn( cmd, args, {
-		cwd: path.join( __dirname, 'script/nwjs-shell-builder' )
+		cwd: path.join( __dirname, 'script/builder' )
 	});
 	installers.stdout.on( 'data', function onStdOut( data ) {
 		console.log( 'stdout: ' + data );
