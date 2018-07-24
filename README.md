@@ -88,4 +88,4 @@ This project is licensed under the [GNU General Public License v2.0](https://www
 
 ## Copyright
 
-Copyright &copy; 2015-2016. Philipp Burckhardt.
+Copyright &copy; 2015-2018. Philipp Burckhardt.
