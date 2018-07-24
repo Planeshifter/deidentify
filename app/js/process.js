@@ -17,6 +17,11 @@ var getReplacement = require( './get_replacement.js' );
 var replace = require( './replace.js' );
 
 
+// VARIABLES //
+
+var debug = require( 'debug' )( 'deidentify:process' );
+
+
 // PROCESS FILE //
 
 /**
@@ -34,8 +39,12 @@ function process( path, config, clbk ) {
 	} else {
 		ner.capitalized = false;
 	}
-
+	debug( 'Loading file at path: '+path );
 	textract.fromFileWithPath( path, function( err, text ) {
+		debug( 'Loaded text: '+text );
+		if ( err ) {
+			return clbk( err );
+		}
 		var actions = [],
 			original = text;
 

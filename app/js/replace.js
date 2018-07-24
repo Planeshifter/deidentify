@@ -10,6 +10,11 @@ var asyncReplace = require( 'async-replace' );
 var getReplacement = require( './get_replacement.js' );
 
 
+// VARIABLES //
+
+var debug = require( 'debug' )( 'deidentify:replace' );
+
+
 // REPLACE //
 
 /**
@@ -64,6 +69,7 @@ function replace( text, type, clbk ) {
 			}
 		});
 	}
+	debug( 'Replace '+regex+' in '+text );
 	asyncReplace( text, regex, replacer, function( err, result ) {
 		clbk( err, result );
 	});
