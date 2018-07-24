@@ -18,7 +18,7 @@ var textract = require( 'textract' );
 * @returns {Void}
 */
 function convertFile( file, clbk ) {
-	var type = mime.lookup( file );
+	var type = mime.getType( file );
 	if ( type !== 'text/plain' ) {
 		textract.fromFileWithPath( file, function( err, text ) {
 			var newFile = file.replace( path.extname( file ), '.txt' );
