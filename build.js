@@ -35,7 +35,7 @@ fs.stat( dirPath, function( err, stat ) {
 function buildExecutables() {
 	console.log( '2. Create Builds.' );
 	var dirName = __dirname;
-	var cmd = path.join( dirName, 'script/nwjs-shell-builder/nwjs-build.sh' );
+	var cmd = path.join( dirName, 'script/builder/nwjs-build.sh' );
 	var args = [
 		'--name=deidentify',
 		'--src=' + path.join( dirName, 'app' ),
