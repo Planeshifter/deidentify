@@ -1,0 +1,3 @@
+[submodule "script/builder"]
+	path = script/builder
+	url = https://github.com/Gisto/nwjs-shell-builder

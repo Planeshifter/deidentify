@@ -5,7 +5,7 @@
 // MODULES //
 
 var childProcess = require( 'child_process' );
-var Download = require( 'download' );
+var download = require( 'download' );
 var path = require( 'path' );
 var fs = require( 'fs' );
 
@@ -21,10 +21,11 @@ var spawn = childProcess.spawn;
 fs.stat( dirPath, function( err, stat ) {
 	if ( err || !stat.isDirectory() ) {
 		console.log( '1. Downloading Stanford NER tool' );
-		new Download( { extract: 'true' } )
-			.get( 'http://nlp.stanford.edu/software/stanford-ner-2014-10-26.zip' )
-			.dest( 'app' )
-			.run( buildExecutables );
+		download(
+			'http://nlp.stanford.edu/software/stanford-ner-2014-10-26.zip',
+			'app'
+			{ extract: 'true' }
+		).then( buildExecutables );
 	} else {
 		console.log( '1. Done. Stanford NER already downloaded.' );
 		buildExecutables();
