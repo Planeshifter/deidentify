@@ -23,7 +23,7 @@ fs.stat( dirPath, function( err, stat ) {
 		console.log( '1. Downloading Stanford NER tool' );
 		download(
 			'http://nlp.stanford.edu/software/stanford-ner-2014-10-26.zip',
-			'app'
+			'app',
 			{ extract: 'true' }
 		).then( buildExecutables );
 	} else {
