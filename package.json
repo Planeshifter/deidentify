@@ -54,7 +54,7 @@
     "mime": "^2.3.1",
     "nedb": "^1.1.4",
     "readdirp": "^2.0.0",
-    "textract": "^2.0.0",
+    "textract": "2.1.0",
     "underscore": "^1.8.3"
   }
 }
