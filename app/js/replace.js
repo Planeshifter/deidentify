@@ -28,7 +28,7 @@ function replace( text, type, clbk ) {
 	var regex;
 	switch ( type ) {
 	case 'dates':
-		regex = /\b(?:\d{2}[./-]\d{2}[./-]\d{4})|((0[1-9]|1[0-2])\/([01][1-9]|10|2[0-8]))|(?:((0[13-9]|1[0-2])\/(29|30))|((0[13578]|1[0-2])\/31))|((?:(?:1[012])|[1-9])\/(?:(?:[1-2][0-9])|3[0-2]|[0-9]))|((?:(?:1[012])|[1-9])-(?:(?:[1-2][0-9])|3[0-2]|[0-9])-[0-9]{2})\b/g;
+		regex = /\b(?:\d{2}[./-]\d{2}[./-]\d{4}|\d{4}[./-]\d{2}[./-]\d{2}|\d{1,2}[./\- ]{1,3}(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[,./\- ]{1,3}\d{2,4}|(?:January|February|March|April|May|June|July|August|September|October|November|December)[,./\- ]{1,2}\d{2,4}|(?:January|February|March|April|May|June|July|August|September|October|November|December)[./\- ]{1,2}\d{1,2}[,./\- ]{1,2}\d{4}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[./\- ]*\d{1,2}[,./\- ]*\d{4})|((0[1-9]|1[0-2])\/([01][1-9]|10|2[0-8]))|(?:((0[13-9]|1[0-2])\/(29|30))|((0[13578]|1[0-2])\/31))|((?:(?:1[012])|[1-9])\/(?:(?:[1-2][0-9])|3[0-2]|[0-9]))|((?:(?:1[012])|[1-9])-(?:(?:[1-2][0-9])|3[0-2]|[0-9])-[0-9]{2})\b/gi;
 	break;
 	case 'emails':
 		regex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/gi;
